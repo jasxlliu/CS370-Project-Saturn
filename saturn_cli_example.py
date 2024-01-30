@@ -88,10 +88,7 @@ if sys.argv[1] == '-p' or sys.argv[1] == '--play':
         print("Error: Please provide a file path after the --play or -p option.", file=sys.stderr)
         sys.exit(1)
 
-
 # ADD YOUR CODE FOR PLAY HERE
-print("I am now playing <filepath>.")
-
 
 '''
 This goes at the end of all of your if statements and it lets you know if you have 
