@@ -76,6 +76,13 @@ For now, just have it print out the statement:
 
 (You'll add in the ability to actually play in the next step.)
 '''
+def play_audio(file):
+    if file_path[len(file_path)-3:len(file_path)] == "wav":
+        wave_obj = sa.WaveObject.from_wave_file(f"{file}")
+        play_obj = wave_obj.play()
+        play_obj.wait_done()
+
+    return 0
 
 # Check if the play command is given
 if sys.argv[1] == '-p' or sys.argv[1] == '--play':
@@ -89,12 +96,6 @@ if sys.argv[1] == '-p' or sys.argv[1] == '--play':
         sys.exit(1)
 
 # ADD YOUR CODE FOR PLAY HERE
-
-def play_audio(file):
-    if file_path[len(file_path)-3:len(file_path)] == "wav":
-        wave_obj = sa.WaveObject.from_wave_file(f"{file}")
-        play_obj = wave_obj.play()
-        play_obj.wait_done()
 
 
 '''
