@@ -11,7 +11,7 @@ Optionally, additional arguments may come after the name of the program, those a
 '''
 
 import sys
-import simpleaudio
+import simpleaudio as sa
 argvlen = len(sys.argv)
 
 '''
@@ -83,12 +83,19 @@ if sys.argv[1] == '-p' or sys.argv[1] == '--play':
     if argvlen > 2:
         file_path = sys.argv[2]
         print("I am now playing", file_path)
-        # TODO: Add code here to actually play the specified audio file using simpleaudio
+        play_audio(file_path)
     else:
         print("Error: Please provide a file path after the --play or -p option.", file=sys.stderr)
         sys.exit(1)
 
 # ADD YOUR CODE FOR PLAY HERE
+
+def play_audio(file):
+    if file_path[len(file_path)-3:len(file_path)] == "wav":
+        wave_obj = sa.WaveObject.from_wave_file(f"{file}")
+        play_obj = wave_obj.play()
+        play_obj.wait_done()
+
 
 '''
 This goes at the end of all of your if statements and it lets you know if you have 
