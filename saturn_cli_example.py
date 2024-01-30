@@ -77,6 +77,7 @@ For now, just have it print out the statement:
 '''
 
 # ADD YOUR CODE FOR PLAY HERE
+print("I am now playing <filepath>.")
 
 
 '''
