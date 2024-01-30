@@ -11,6 +11,7 @@ Optionally, additional arguments may come after the name of the program, those a
 '''
 
 import sys
+import simpleaudio
 argvlen = len(sys.argv)
 
 '''
