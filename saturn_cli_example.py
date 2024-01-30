@@ -11,6 +11,7 @@ Optionally, additional arguments may come after the name of the program, those a
 '''
 
 import sys
+import os
 import simpleaudio as sa
 argvlen = len(sys.argv)
 
@@ -90,6 +91,8 @@ if sys.argv[1] == '-p' or sys.argv[1] == '--play':
     # Ensure there is at least one more argument for the file path
     if argvlen > 2:
         file_path = sys.argv[2]
+        if file_path[0] == ".":
+            file_path = str(os.getcwd()) + file_path[1:]
         print("I am now playing", file_path)
         play_audio(file_path)
     else:
