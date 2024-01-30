@@ -78,6 +78,7 @@ For now, just have it print out the statement:
 '''
 def play_audio(file):
     if file[len(file)-3:len(file)] == "wav":
+        #checks the if the filetype matches
         wave_obj = sa.WaveObject.from_wave_file(f"{file}")
         play_obj = wave_obj.play()
         play_obj.wait_done()
