@@ -77,6 +77,18 @@ For now, just have it print out the statement:
 (You'll add in the ability to actually play in the next step.)
 '''
 
+# Check if the play command is given
+if sys.argv[1] == '-p' or sys.argv[1] == '--play':
+    # Ensure there is at least one more argument for the file path
+    if argvlen > 2:
+        file_path = sys.argv[2]
+        print("I am now playing", file_path)
+        # TODO: Add code here to actually play the specified audio file using simpleaudio
+    else:
+        print("Error: Please provide a file path after the --play or -p option.", file=sys.stderr)
+        sys.exit(1)
+
+
 # ADD YOUR CODE FOR PLAY HERE
 print("I am now playing <filepath>.")
 
