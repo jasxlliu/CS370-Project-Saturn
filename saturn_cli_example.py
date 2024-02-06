@@ -83,8 +83,9 @@ def play_audio(file):
         wave_obj = sa.WaveObject.from_wave_file(f"{file}")
         play_obj = wave_obj.play()
         play_obj.wait_done()
-
-    return 0
+        return True
+    
+    return False
 
 def play_multiple_sounds_together():
     pass
