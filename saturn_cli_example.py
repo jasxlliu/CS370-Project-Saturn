@@ -86,6 +86,16 @@ def play_audio(file):
 
     return 0
 
+def play_multiple_sounds_together():
+    pass
+
+def play_multiple_audio_sequential(file_list):
+    for i in file_list:
+        play_audio(i)
+    
+    return 0
+    
+
 # Check if the play command is given
 if sys.argv[1] == '-p' or sys.argv[1] == '--play':
     # Ensure there is at least one more argument for the file path
