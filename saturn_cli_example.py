@@ -12,6 +12,7 @@ Optionally, additional arguments may come after the name of the program, those a
 
 import sys
 import os
+import threading
 import simpleaudio as sa
 argvlen = len(sys.argv)
 
@@ -77,25 +78,36 @@ For now, just have it print out the statement:
 
 (You'll add in the ability to actually play in the next step.)
 '''
-def play_audio(file):
-    if file[len(file)-3:len(file)] == "wav":
-        #checks the if the filetype matches
-        wave_obj = sa.WaveObject.from_wave_file(f"{file}")
-        play_obj = wave_obj.play()
-        play_obj.wait_done()
-        return True
-    
-    return False
 
-def play_multiple_sounds_together():
-    pass
 
-def play_multiple_audio_sequential(file_list):
-    for i in file_list:
-        play_audio(i)
-    
-    return 0
-    
+# this will be passed by the if statement below
+def get_queue(queue_as_string)
+    queue = queue_as_string.split()
+    return queue
+
+def play(file_path):
+    wave_obj = sa.WaveObject.from_wave_file(file_path)
+    play_obj = wave_obj.play()
+    play_obj.wait_done()
+
+def play_overlap(queue):
+    threads = []
+    for file_path in queue:
+        thread = threading.Thread(target=play, args=(file_path))
+        threads.append(thread)
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join()
+
+def play_sequential():
+    playing = False
+    if not playing:
+        playing = True
+        for file_path in queue:
+            play(file_path)
+        playing = False
+
 
 # Check if the play command is given
 if sys.argv[1] == '-p' or sys.argv[1] == '--play':
