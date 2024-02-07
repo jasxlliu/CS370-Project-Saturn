@@ -81,7 +81,7 @@ For now, just have it print out the statement:
 
 
 # this will be passed by the if statement below
-def get_queue(queue_as_string)
+def get_queue(queue_as_string):
     queue = queue_as_string.split()
     return queue
 
