@@ -100,14 +100,9 @@ def play_overlap(queue):
     for thread in threads:
         thread.join()
 
-def play_sequential():
-    playing = False
-    if not playing:
-        playing = True
-        for file_path in queue:
-            play(file_path)
-        playing = False
-
+def play_sequential(queue):
+    for file_path in queue:
+        play(file_path) # this should work, since play waits until the sound is done
 
 # Check if the play command is given
 if sys.argv[1] == '-p' or sys.argv[1] == '--play':
