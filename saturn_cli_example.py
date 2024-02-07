@@ -112,7 +112,7 @@ if sys.argv[1] == '-p' or sys.argv[1] == '--play':
         if file_path[0] == ".":
             file_path = str(os.getcwd()) + file_path[1:]
         print("I am now playing", file_path)
-        play_audio(file_path)
+        play(file_path)
     else:
         print("Error: Please provide a file path after the --play or -p option.", file=sys.stderr)
         sys.exit(1)
