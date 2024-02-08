@@ -93,7 +93,7 @@ def play(file_path):
 def play_overlap(queue):
     threads = []
     for file_path in queue:
-        thread = threading.Thread(target=play, args=(file_path))
+        thread = threading.Thread(target=play, args=(file_path, ))
         threads.append(thread)
     for thread in threads:
         thread.start()
@@ -101,8 +101,11 @@ def play_overlap(queue):
         thread.join()
 
 def play_sequential(queue):
+    # go through and play each sound in our list.
     for file_path in queue:
+        print("Playing:", file_path)
         play(file_path) # this should work, since play waits until the sound is done
+        
 
 # Check if the play command is given
 if sys.argv[1] == '-p' or sys.argv[1] == '--play':
@@ -116,6 +119,35 @@ if sys.argv[1] == '-p' or sys.argv[1] == '--play':
     else:
         print("Error: Please provide a file path after the --play or -p option.", file=sys.stderr)
         sys.exit(1)
+
+# Check if the play command with sequential flag is given
+elif sys.argv[1] == '-s' or sys.argv[1] == '--sequential':
+    file_paths = []
+    # Ensure there is at least one more argument for the file path
+    if argvlen > 2:
+        for i in sys.argv[2:]:
+            file_paths.append(i)
+            #print("I am now playing files sequentially:", i)
+        print(file_paths)
+        play_sequential(file_paths)
+    else:
+        print("Error: Please provide file paths after the --sequential or -s option.", file=sys.stderr)
+        sys.exit(1)
+
+# Check if the play command with overlap flag is given
+elif sys.argv[1] == '-t' or sys.argv[1] == '--top':
+    file_paths = []
+    # Ensure there is at least one more argument for the file path
+    if argvlen > 2:
+        # loop through the sound files (maybe not most efficient but can be changed later!)
+        for i in sys.argv[2:]:
+            file_paths.append(i)
+            print("I am now playing files on top of each other:", i)
+        play_overlap(file_paths)
+    else:
+        print("Error: Please provide file paths after the --top or -t option.", file=sys.stderr)
+        sys.exit(1)
+
 
 # ADD YOUR CODE FOR PLAY HERE
 
