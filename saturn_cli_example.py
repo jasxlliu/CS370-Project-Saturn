@@ -106,10 +106,11 @@ def play_overlap(queue):
 
 def play_sequential(queue):
     # go through and play each sound in our list.
-    while not isPlaying:
+    while not isPlaying and queue != []:
         for file_path in queue:
             print("Playing:", file_path)
             play(file_path) # this should work, since play waits until the sound is done
+            queue = queue[1:] # remove the first element from the list
 
 # Check if the play command is given
 if sys.argv[1] == '-p' or sys.argv[1] == '--play':
