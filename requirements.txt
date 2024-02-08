@@ -1,0 +1,5 @@
+# REQUIRED MODULES
+# run "py -m pip install ." in this directory to quickly install them
+# we will presumably add to this list as needed
+
+simpleaudio
