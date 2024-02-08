@@ -61,6 +61,7 @@ class CommandLineParser:
         else:
             errors = self.argv[1:]
             print(self.argv[0], "error, unexpected arguments ", errors, file=sys.stderr)
+            print("Try", self.argv[0], "--help")
             sys.exit(1)
 
     def play_command(self):
