@@ -56,8 +56,6 @@ class CommandLineParser:
             self.sequential_command()
         elif self.argv[1] == "-o" or self.argv[1] == "--overlap":
             self.overlap_command()
-        elif self.argv[1] == "-t" or self.argv[1] == "--top":
-            self.top_command()
         else:
             errors = self.argv[1:]
             print(self.argv[0], "error, unexpected arguments ", errors, file=sys.stderr)
@@ -83,7 +81,7 @@ class CommandLineParser:
         if self.argvlen > 2:
             for i in self.argv[2:]:
                 file_paths.append(i)
-            print(file_paths)
+                print("I am now playing files overlapping each other:", i)
             self.play_overlap(file_paths)
         else:
             print(
@@ -102,20 +100,6 @@ class CommandLineParser:
         else:
             print(
                 "Error: Please provide file paths after the --sequential or -s option.",
-                file=sys.stderr,
-            )
-            sys.exit(1)
-
-    def top_command(self):
-        file_paths = []
-        if self.argvlen > 2:
-            for i in self.argv[2:]:
-                file_paths.append(i)
-                print("I am now playing files on top of each other:", i)
-            self.play_overlap(file_paths)
-        else:
-            print(
-                "Error: Please provide file paths after the --top or -t option.",
                 file=sys.stderr,
             )
             sys.exit(1)
