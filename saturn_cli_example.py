@@ -111,6 +111,7 @@ def play_sequential(queue):
             print("Playing:", file_path)
             play(file_path) # this should work, since play waits until the sound is done
             queue = queue[1:] # remove the first element from the list
+                              # this prevents an infinite loop
 
 # Check if the play command is given
 if sys.argv[1] == '-p' or sys.argv[1] == '--play':
