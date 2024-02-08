@@ -80,15 +80,19 @@ For now, just have it print out the statement:
 '''
 
 
+isPlaying = False
+
 # this will be passed by the if statement below
 def get_queue(queue_as_string):
     queue = queue_as_string.split()
     return queue
 
 def play(file_path):
+    isPlaying = True
     wave_obj = sa.WaveObject.from_wave_file(file_path)
     play_obj = wave_obj.play()
     play_obj.wait_done()
+    isPlaying = False
 
 def play_overlap(queue):
     threads = []
@@ -102,10 +106,10 @@ def play_overlap(queue):
 
 def play_sequential(queue):
     # go through and play each sound in our list.
-    for file_path in queue:
-        print("Playing:", file_path)
-        play(file_path) # this should work, since play waits until the sound is done
-        
+    while not isPlaying:
+        for file_path in queue:
+            print("Playing:", file_path)
+            play(file_path) # this should work, since play waits until the sound is done
 
 # Check if the play command is given
 if sys.argv[1] == '-p' or sys.argv[1] == '--play':
