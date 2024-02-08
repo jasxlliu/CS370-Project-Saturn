@@ -46,21 +46,29 @@ class CommandLineParser:
                 queue = queue[1:]
 
     def parse_arguments(self):
-        if self.argvlen <= 1 or self.argv[1] == "--help" or self.argv[1] == "-h":
-            self.print_help()
-        elif self.argv[1] == "-c" or self.argv[1] == "--count":
-            self.count_arguments()
-        elif self.argv[1] == "-p" or self.argv[1] == "--play":
-            self.play_command()
-        elif self.argv[1] == "-s" or self.argv[1] == "--sequential":
-            self.sequential_command()
-        elif self.argv[1] == "-o" or self.argv[1] == "--overlap":
-            self.overlap_command()
-        else:
-            errors = self.argv[1:]
-            print(self.argv[0], "error, unexpected arguments ", errors, file=sys.stderr)
-            print("Try", self.argv[0], "--help")
-            sys.exit(1)
+        command = self.argv[1] if len(self.argv) > 1 else None
+
+        match command:
+            case None | "--help" | "-h":
+                self.print_help()
+            case "-c" | "--count":
+                self.count_arguments()
+            case "-p" | "--play":
+                self.play_command()
+            case "-s" | "--sequential":
+                self.sequential_command()
+            case "-o" | "--overlap":
+                self.overlap_command()
+            case _:
+                errors = self.argv[1:]
+                print(
+                    self.argv[0],
+                    "error, unexpected arguments ",
+                    errors,
+                    file=sys.stderr,
+                )
+                print("Try", self.argv[0], "--help")
+                sys.exit(1)
 
     def play_command(self):
         if self.argvlen > 2:
