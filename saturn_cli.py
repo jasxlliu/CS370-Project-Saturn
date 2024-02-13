@@ -3,8 +3,31 @@ import os
 import threading
 import simpleaudio as sa
 
-
 class CommandLineParser:
+    """
+    A class that parses command line arguments and executes corresponding commands.
+
+    Args:
+        argv (list): The list of command line arguments.
+
+    Attributes:
+        argv (list): The list of command line arguments.
+        argvlen (int): The length of the command line arguments.
+        isPlaying (bool): A flag indicating whether audio is currently being played.
+
+    Methods:
+        print_help(): Prints the help message with available commands.
+        count_arguments(): Counts the number of arguments passed.
+        play(file_path): Plays an audio file.
+        play_overlap(queue): Plays multiple audio files overlapping each other.
+        play_sequential(queue): Plays multiple audio files sequentially.
+        play_command(): Executes the play command.
+        overlap_command(): Executes the overlap command.
+        sequential_command(): Executes the sequential command.
+        list_command(): Lists all WAV files in the current directory recursively.
+        rename_command(): Renames an audio file.
+        parse_arguments(): Parses the command line arguments and executes the corresponding command.
+    """
     def __init__(self, argv):
         self.argv = argv
         self.argvlen = len(argv)
