@@ -61,6 +61,8 @@ class CommandLineParser:
                 self.overlap_command()
             case "-l" | "--list":
                 self.list_command()
+            case "-r" | "--rename":
+                self.rename_command()
             case _:
                 errors = self.argv[1:]
                 print(
@@ -121,6 +123,19 @@ class CommandLineParser:
                 if file.endswith(".wav"):
                     print(os.path.join(root, file))
 
+    def rename_command(self):
+        # rename an audio file, take the original name and the new one, doesn't change file extension
+        if self.argvlen > 3:
+            original_name = self.argv[2]
+            new_name = self.argv[3]
+            if original_name.endswith(".wav") and new_name.endswith(".wav"):
+                os.rename(original_name, new_name)
+            else:
+                print(
+                    "Error: Please provide a file path with .wav extension after the --rename or -r option.",
+                    file=sys.stderr,
+                )
+                sys.exit(1)
 
 if __name__ == "__main__":
     parser = CommandLineParser(sys.argv)
