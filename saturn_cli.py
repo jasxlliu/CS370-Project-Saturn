@@ -14,13 +14,13 @@ class CommandLineParser:
         print("usage:", self.argv[0], "--help")
         # print all commands and what they do
         print("Commands:")
-        print("  -h, --help, print this help message.")
-        print("  -c, --count", "count the number of arguments.")
-        print("  -p, --play", "play a file.")
-        print("  -s, --sequential", "play files sequentially.")
-        print("  -o, --overlap", "play files overlapping each other.")
-        print("  -l, --list", "list all wav files in the current directory recursively")
-        print("  -r, --rename", "rename an audio file.")
+        print("  -h, --help", "                 ", "print this help message.")
+        print("  -c, --count", "                ", "count the number of arguments.")
+        print("  -p, --play", "                 ", "play a file.")
+        print("  -s, --sequential", "           ", "play files sequentially.")
+        print("  -o, --overlap", "              ", "play files overlapping each other.")
+        print("  -l, --list", "                 ", "list all wav files in the current directory recursively")
+        print("  -r, --rename", "               ", "rename an audio file.")
         sys.exit(0)
 
     def count_arguments(self):
