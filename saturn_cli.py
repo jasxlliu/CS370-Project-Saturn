@@ -55,34 +55,6 @@ class CommandLineParser:
                 self.play(file_path)
                 queue = queue[1:]
 
-    def parse_arguments(self):
-        command = self.argv[1] if len(self.argv) > 1 else None
-
-        match command:
-            case None | "--help" | "-h":
-                self.print_help()
-            case "-c" | "--count":
-                self.count_arguments()
-            case "-p" | "--play":
-                self.play_command()
-            case "-s" | "--sequential":
-                self.sequential_command()
-            case "-o" | "--overlap":
-                self.overlap_command()
-            case "-l" | "--list":
-                self.list_command()
-            case "-r" | "--rename":
-                self.rename_command()
-            case _:
-                errors = self.argv[1:]
-                print(
-                    self.argv[0],
-                    "error, unexpected arguments ",
-                    errors,
-                    file=sys.stderr,
-                )
-                print("Try", self.argv[0], "--help")
-                sys.exit(1)
 
     def play_command(self):
         if self.argvlen > 2:
@@ -145,6 +117,35 @@ class CommandLineParser:
                     "Error: Please provide a file path with .wav extension after the --rename or -r option.",
                     file=sys.stderr,
                 )
+                sys.exit(1)
+
+    def parse_arguments(self):
+        command = self.argv[1] if len(self.argv) > 1 else None
+
+        match command:
+            case None | "--help" | "-h":
+                self.print_help()
+            case "-c" | "--count":
+                self.count_arguments()
+            case "-p" | "--play":
+                self.play_command()
+            case "-s" | "--sequential":
+                self.sequential_command()
+            case "-o" | "--overlap":
+                self.overlap_command()
+            case "-l" | "--list":
+                self.list_command()
+            case "-r" | "--rename":
+                self.rename_command()
+            case _:
+                errors = self.argv[1:]
+                print(
+                    self.argv[0],
+                    "error, unexpected arguments ",
+                    errors,
+                    file=sys.stderr,
+                )
+                print("Try", self.argv[0], "--help")
                 sys.exit(1)
 
 if __name__ == "__main__":
