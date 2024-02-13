@@ -29,6 +29,7 @@ class CommandLineParser:
         parse_arguments(): Parses the command line arguments and executes the corresponding command.
     """
     def __init__(self, argv):
+        # initialize the command line parser
         self.argv = argv
         self.argvlen = len(argv)
         self.isPlaying = False
@@ -47,6 +48,7 @@ class CommandLineParser:
         sys.exit(0)
 
     def count_arguments(self):
+        # count the number of arguments passed
         print(
             "counted ",
             self.argvlen - 2,
@@ -55,6 +57,7 @@ class CommandLineParser:
         sys.exit(0)
 
     def play(self, file_path):
+        # play a file using the simpleaudio library
         self.isPlaying = True
         wave_obj = sa.WaveObject.from_wave_file(file_path)
         play_obj = wave_obj.play()
@@ -62,6 +65,8 @@ class CommandLineParser:
         self.isPlaying = False
 
     def play_overlap(self, queue):
+        # play files overlapping using the play method
+        # and threading to play multiple files at the same time
         threads = []
         for file_path in queue:
             thread = threading.Thread(target=self.play, args=(file_path,))
@@ -72,6 +77,7 @@ class CommandLineParser:
             thread.join()
 
     def play_sequential(self, queue):
+        # play files sequentially using the play method
         while not self.isPlaying and queue:
             for file_path in queue:
                 print("Playing:", file_path)
@@ -80,6 +86,7 @@ class CommandLineParser:
 
 
     def play_command(self):
+        # play a file using the play method
         if self.argvlen > 2:
             file_path = self.argv[2]
             if file_path[0] == ".":
@@ -94,6 +101,7 @@ class CommandLineParser:
             sys.exit(1)
 
     def overlap_command(self):
+        # play files overlapping using the play_overlap method
         file_paths = []
         if self.argvlen > 2:
             for i in self.argv[2:]:
@@ -108,6 +116,7 @@ class CommandLineParser:
             sys.exit(1)
 
     def sequential_command(self):
+        # play files sequentiall using the play method
         file_paths = []
         if self.argvlen > 2:
             for i in self.argv[2:]:
@@ -143,6 +152,7 @@ class CommandLineParser:
                 sys.exit(1)
 
     def parse_arguments(self):
+        # parse the command line arguments and execute the corresponding command
         command = self.argv[1] if len(self.argv) > 1 else None
 
         match command:
@@ -172,5 +182,6 @@ class CommandLineParser:
                 sys.exit(1)
 
 if __name__ == "__main__":
+    # create a command line parser and parse the command line arguments
     parser = CommandLineParser(sys.argv)
     parser.parse_arguments()
