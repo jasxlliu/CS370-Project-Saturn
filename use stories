@@ -9,3 +9,25 @@ User Stories for Epoch 2
 7. I, as a user, would like to blend two audio files so one audio file plays into another audio file, with simultaneous overlap.
 8. I, as a user, would like to bass boost an audio file. 
 9. I, as a user would like to normalize the volume of an audio file to a target amount of decibels.
+
+Name: UC-#BassBoost
+Summary: The audio of a file has its bass boosted.
+Rationale: This would be funny.
+Users: All users
+Preconditions: A audio file is loaded.
+Basic course of events: 1. Audio file loaded
+                        2. User's flag would specify to boost the bass and the value by which to do it.
+                        3. The audio track is played, with the new bass amount.
+Alternate paths:        1. The user can exit playing, and since it is not permanent, it will revert to the precondition state.
+Postconditions: This will not be permanent, to avoid changing the files themselves.
+
+Name: UC-#NormalizeAudio
+Summary: The audio levels will be normalized, meaning the volume will effect them all equally.
+Rationale: This is a necessary quality of life addition.
+Users: All users
+Preconditions: A audio file is loaded.
+Basic course of events: 1. Audio file loaded
+                        2. The audio level would be set to a value pre-set into the python file or provided by the user.
+                        3. The audio track is played
+Alternate paths:        1. The user can exit playing, and since it is not permanent, it will revert to the precondition state.
+Postconditions: This will not be permanent, to avoid changing the files themselves.
