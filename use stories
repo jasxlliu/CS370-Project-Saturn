@@ -31,3 +31,16 @@ Basic course of events: 1. Audio file loaded
                         3. The audio track is played
 Alternate paths:        1. The user can exit playing, and since it is not permanent, it will revert to the precondition state.
 Postconditions: This will not be permanent, to avoid changing the files themselves.
+
+
+Name: Reverse 
+Summary: Plays a selected audio file in reverse when applied
+Rationale: A listener would want to listen to an audio file in reverse for a new listening experience. 
+Users: All Users
+Preconditions: A single, playable audio file has been loaded
+Basic Course of Events: 
+  1. The user selects their desired file
+  2. The user then selects the 'reverse' option before playing the file
+  3. When the user plays the file, the file is played in reverse
+Alternative Paths: NA
+Postconditions: File is no longer selected, and reverse is no longer applied to any files until selected again
