@@ -11,7 +11,7 @@ class CommandLineParser:
         self.isPlaying = False
 
     def print_help(self):
-        print("usage:", self.argv[0], "--help")
+        print("usage:", "python", self.argv[0], "--help")
         # print all commands and what they do
         print("Commands:")
         print("  -h, --help", "                 ", "print this help message.")
