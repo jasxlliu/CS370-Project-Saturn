@@ -25,7 +25,7 @@ class CommandLineParser:
         play_command(): Executes the play command.
         overlap_command(): Executes the overlap command.
         sequential_command(): Executes the sequential command.
-        list_command(): Lists all WAV files in the current directory recursively.
+        list_command(): Lists all audio files in the current directory recursively.
         rename_command(): Renames an audio file.
         parse_arguments(): Parses the command line arguments and executes the corresponding command.
     """
@@ -34,7 +34,7 @@ class CommandLineParser:
         self.argv = argv
         self.argvlen = len(argv)
         self.isPlaying = False
-        self.audioFormats = [".wav", ".mp3", ".ogg", ".flac", ".m4a"]
+        self.audioFormats = [".wav", ".mp3", ".ogg", ".flac", ".m4a", ".wma", ".aiff", ".alac", ".aac", ".amr", ".au", ".awb", ".dct", ".dss", ".dvf", ".gsm", ".iklax", ".ivs", ".m4p", ".mmf", ".mpc", ".msv", ".nmf", ".nsf", ".oga", ".mogg", ".opus", ".ra", ".rm", ".raw", ".sln", ".tta", ".vox", ".wv", ".webm", ".8svx"]
 
     def print_help(self):
         print("usage:", "python", self.argv[0], "--help")
@@ -45,7 +45,7 @@ class CommandLineParser:
         print("-p,--play\t\tplay a file.")
         print("-s,--sequential\t\tplay files sequentially.")
         print("-o,--overlap\t\tplay files overlapping each other.")
-        print("-l,--list\t\tlist all wav files in the current directory recursively.")
+        print("-l,--list\t\tlist all audio files in the current directory recursively.")
         print("-r,--rename\t\trename an audio file.")
         sys.exit(0)
 
@@ -148,7 +148,7 @@ class CommandLineParser:
         #print all files in the current directory recursively with audio file extensions
         for root, dirs, files in os.walk(os.getcwd()):
             for file in files:
-                if file[-4:] in self.audioFormats or file[-5:] in self.audioFormats:
+                if file[-4:] in self.audioFormats or file[-5:] in self.audioFormats or file[-6:] in self.audioFormats or file[-3:] in self.audioFormats:
                     print(os.path.join(root, file))
 
     def rename_command(self):
