@@ -5,6 +5,7 @@ import simpleaudio as sa
 import vlc
 
 class CommandLineParser:
+
     """
     A class that parses command line arguments and executes corresponding commands.
 
@@ -29,12 +30,16 @@ class CommandLineParser:
         rename_command(): Renames an audio file.
         parse_arguments(): Parses the command line arguments and executes the corresponding command.
     """
+
     def __init__(self, argv):
         # initialize the command line parser
         self.argv = argv
         self.argvlen = len(argv)
         self.isPlaying = False
-        self.audioFormats = [".wav", ".mp3", ".ogg", ".flac", ".m4a", ".wma", ".aiff", ".alac", ".aac", ".amr", ".au", ".awb", ".dct", ".dss", ".dvf", ".gsm", ".iklax", ".ivs", ".m4p", ".mmf", ".mpc", ".msv", ".nmf", ".nsf", ".oga", ".mogg", ".opus", ".ra", ".rm", ".raw", ".sln", ".tta", ".vox", ".wv", ".webm", ".8svx"]
+        # small list of audio formats
+        self.audioFormats = [".wav", ".mp3", ".ogg", ".flac", ".m4a", ".wma", ".aiff", ".alac", ".aac", ".amr", ".au", ".awb", ".dct", ".dss",
+                             ".dvf", ".gsm", ".iklax", ".ivs", ".m4p", ".mmf", ".mpc", ".msv", ".nmf", ".nsf", ".oga", ".mogg", ".opus", ".ra",
+                             ".rm", ".raw", ".sln", ".tta", ".vox", ".wv", ".webm", ".8svx"]
 
     def print_help(self):
         print("usage:", "python", self.argv[0], "--help")
