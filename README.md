@@ -1,3 +1,9 @@
+### BEFORE RUNNING CLI!!!!
+### INSTALL DEPENDENCIES!!!!!
+### CD INTO DIRECTORY AND USE `python -m pip install -r ./requirements.txt` !!!!
+
+
+
 # CS370-Project-Saturn                                                                                   
 **TODO:**       
 - [x] play function

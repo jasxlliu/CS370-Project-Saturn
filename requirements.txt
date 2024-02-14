@@ -2,5 +2,5 @@
 # run "python -m pip install -r ./requirements.txt" in this directory to quickly install them
 # we will presumably add to this list as needed
 
-simpleaudio
-python-vlc
+simpleaudio # for playing WAV files
+python-vlc # for playing all other audio files (and additionally video files lol)
