@@ -16,7 +16,7 @@ class CommandLineParser:
         argv (list): The list of command line arguments.
         argvlen (int): The length of the command line arguments.
         isPlaying (bool): A flag indicating whether audio is currently being played.
-
+        audioFormats (list): A list of audio formats.
     Methods:
         print_help(): Prints the help message with available commands.
         count_arguments(): Counts the number of arguments passed.
