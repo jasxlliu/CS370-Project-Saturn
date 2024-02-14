@@ -2,6 +2,7 @@ import sys
 import os
 import threading
 import simpleaudio as sa
+import vlc
 
 class CommandLineParser:
     """
@@ -33,6 +34,7 @@ class CommandLineParser:
         self.argv = argv
         self.argvlen = len(argv)
         self.isPlaying = False
+        self.audioFormats = [".wav", ".mp3", ".ogg", ".flac", ".m4a"]
 
     def print_help(self):
         print("usage:", "python", self.argv[0], "--help")
@@ -58,11 +60,23 @@ class CommandLineParser:
 
     def play(self, file_path):
         # play a file using the simpleaudio library
-        self.isPlaying = True
-        wave_obj = sa.WaveObject.from_wave_file(file_path)
-        play_obj = wave_obj.play()
-        play_obj.wait_done()
-        self.isPlaying = False
+        if file_path[-4:] == ".wav":
+            self.isPlaying = True
+            wave_obj = sa.WaveObject.from_wave_file(file_path)
+            play_obj = wave_obj.play()
+            play_obj.wait_done()
+            self.isPlaying = False
+        else:
+            self.isPlaying = True
+            instance = vlc.Instance()
+            player = instance.media_player_new()
+            media = instance.media_new(file_path)
+            media.get_mrl()
+            player.set_media(media)
+            player.play()
+            while player.is_playing():
+                continue
+            self.isPlaying = False
 
     def play_overlap(self, queue):
         # play files overlapping using the play method
@@ -131,10 +145,10 @@ class CommandLineParser:
             sys.exit(1)
 
     def list_command(self):
-        #print all files in the current directory recursively with *.wav extension
+        #print all files in the current directory recursively with audio file extensions
         for root, dirs, files in os.walk(os.getcwd()):
             for file in files:
-                if file.endswith(".wav"):
+                if file[-4:] in self.audioFormats or file[-5:] in self.audioFormats:
                     print(os.path.join(root, file))
 
     def rename_command(self):
@@ -142,14 +156,13 @@ class CommandLineParser:
         if self.argvlen > 3:
             original_name = self.argv[2]
             new_name = self.argv[3]
-            if original_name.endswith(".wav") and new_name.endswith(".wav"):
-                os.rename(original_name, new_name)
-            else:
-                print(
-                    "Error: Please provide a file path with .wav extension after the --rename or -r option.",
-                    file=sys.stderr,
-                )
-                sys.exit(1)
+            os.rename(original_name, new_name)
+        else:
+            print(
+                "Error: Please provide two arguments after after the --rename or -r option.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
 
     def parse_arguments(self):
         # parse the command line arguments and execute the corresponding command

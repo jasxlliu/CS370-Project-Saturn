@@ -3,3 +3,4 @@
 # we will presumably add to this list as needed
 
 simpleaudio
+python-vlc
