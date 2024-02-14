@@ -2,7 +2,8 @@ import sys
 import os
 import threading
 import simpleaudio as sa
-import vlc
+if os.name != "nt":
+    import vlc
 
 class CommandLineParser:
 
@@ -71,6 +72,10 @@ class CommandLineParser:
             play_obj = wave_obj.play()
             play_obj.wait_done()
             self.isPlaying = False
+        elif os.name == "nt":
+            print("You are on windows, which is not supported by python-vlc. Please try playing a wav file or use a different OS.",
+                    file=sys.stderr)
+            sys.exit(1)
         else:
             self.isPlaying = True
             instance = vlc.Instance()
