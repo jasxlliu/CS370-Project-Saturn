@@ -155,7 +155,14 @@ class CommandLineParser:
         # rename an audio file, take the original name and the new one, doesn't change file extension
         if self.argvlen > 3:
             original_name = self.argv[2]
+            extension = original_name.split(".")[-1] if original_name[0] != "." else original_name[1:].split(".")[-1]
             new_name = self.argv[3]
+            if "." not in new_name[1:] or "." not in original_name[1:]:
+                print("Error: Please provide the file extension(s).", file=sys.stderr)
+                sys.exit(1)
+            elif original_name[1:].split(".")[-1] != new_name[1:].split(".")[-1]:
+                print('This function does not convert between audio formats. Using original file extension...')
+            new_name = new_name.split(".")[0] if new_name[0] != "." else "." + new_name[1:].split(".")[0] + "." + extension
             os.rename(original_name, new_name)
         else:
             print(
