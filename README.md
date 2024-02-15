@@ -12,7 +12,8 @@
 # Project Saturn                                                                                 
 **TODO:**       
 - [ ] tests!!!!
-- [ ] comments!!!
+- [ ] comments (new and update big block comment under class name)
+- [ ] update documetation.md with new functions
 
 
 **DONE:**
