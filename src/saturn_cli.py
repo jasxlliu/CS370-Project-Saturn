@@ -78,58 +78,21 @@ class CommandLineParser:
         ]
 
     def print_help(self):
-        print("usage:", "python", self.argv[0], "--help")
-        # print all commands and what they do
-        print("Commands\t\tDescription\t\tUsage")
-        print(
-            "-h,--help\t\tprint this help message.\t\tpython "
-            + self.argv[0]
-            + " --help"
-        )
-        print(
-            "-c,--count\t\tcount the number of arguments.\t\tpython "
-            + self.argv[0]
-            + " --count"
-        )
-        print(
-            "-p,--play\t\tplay a file.\t\tpython " + self.argv[0] + " --play file_path"
-        )
-        print(
-            "-s,--sequential\t\tplay files sequentially.\t\tpython "
-            + self.argv[0]
-            + " --sequential file_path1 file_path2 ..."
-        )
-        print(
-            "-o,--overlap\t\tplay files overlapping each other.\t\tpython "
-            + self.argv[0]
-            + " --overlap file_path1 file_path2 ..."
-        )
-        print(
-            "-l,--list\t\tlist all audio files in the current directory recursively.\t\tpython "
-            + self.argv[0]
-            + " --list"
-        )
-        print(
-            "-r,--rename\t\trename an audio file.\t\tpython "
-            + self.argv[0]
-            + " --rename original_name new_name"
-        )
-        print(
-            "-t,--transcode\t\tchange audio format.\t\tpython "
-            + self.argv[0]
-            + " --transcode original_name new_name file_extension"
-        )
-        print(
-            "-b,--play-backwards\t\tplay a file backwards.\t\tpython "
-            + self.argv[0]
-            + " --play-backwards file_path"
-        )
-        print(
-            "-a,--concatenate\t\tconcatenate audio files.\t\tpython "
-            + self.argv[0]
-            + " --concatenate file_path1 file_path2 ... extension"
-        )
+        # this is hacky, but it is the only way to get the help message to print nicely without too much work
+        print("Usage: python {} --help".format(self.argv[0]))
+        print("Commands:            Description:                                 Usage:")
+        print("\n-h,--help            Print this help message.                     python {} --help".format(self.argv[0]))
+        print("-c,--count           Count the number of arguments.               python {} --count".format(self.argv[0]))
+        print("-p,--play            Play a file.                                 python {} --play file_path".format(self.argv[0]))
+        print("-s,--sequential      Play files sequentially.                     python {} --sequential file_path1 file_path2 ...".format(self.argv[0]))
+        print("-o,--overlap         Play files overlapping each other.           python {} --overlap file_path1 file_path2 ...".format(self.argv[0]))
+        print("-l,--list            List audio files in the current directory.   python {} --list".format(self.argv[0]))
+        print("-r,--rename          Rename an audio file.                        python {} --rename original_name new_name".format(self.argv[0]))
+        print("-t,--transcode       Change audio format.                         python {} --transcode original_name new_name file_extension".format(self.argv[0]))
+        print("-b,--play-backwards  Play a file backward.                        python {} --play-backwards file_path".format(self.argv[0]))
+        print("-a,--concatenate     Concatenate audio files.                     python {} --concatenate file_path1 file_path2 ... new_name extension".format(self.argv[0]))
         sys.exit(0)
+
 
     def count_arguments(self):
         # count the number of arguments passed
