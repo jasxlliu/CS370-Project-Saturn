@@ -19,17 +19,20 @@ class CommandLineParser:
         isPlaying (bool): A flag indicating whether audio is currently being played.
         audioFormats (list): A list of audio formats.
     Methods:
-        print_help(): Prints the help message with available commands.
-        count_arguments(): Counts the number of arguments passed.
-        play(file_path): Plays an audio file.
-        play_overlap(queue): Plays multiple audio files overlapping each other.
-        play_sequential(queue): Plays multiple audio files sequentially.
-        play_command(): Executes the play command.
-        overlap_command(): Executes the overlap command.
-        sequential_command(): Executes the sequential command.
-        list_command(): Lists all audio files in the current directory recursively.
-        rename_command(): Renames an audio file.
-        parse_arguments(): Parses the command line arguments and executes the corresponding command.
+        print_help: Print the help message.
+        count_arguments: Count the number of arguments passed.
+        play: Play a file using the simpleaudio library.
+        play_overlap: Play files overlapping using the play method and threading.
+        play_sequential: Play files sequentially using the play method.
+        play_command: Play a file using the play method.
+        overlap_command: Play files overlapping using the play_overlap method.
+        sequential_command: Play files sequentiall using the play method.
+        list_command: Print all files in the current directory recursively with audio file extensions.
+        rename_command: Rename an audio file.
+        transcode_command: Change audio format.
+        play_backwards_command: Play a file backward.
+        concatenate_command: Concatenate audio files.
+        parse_arguments: Parse the command line arguments and execute the corresponding command.
     """
 
     def __init__(self, argv):
