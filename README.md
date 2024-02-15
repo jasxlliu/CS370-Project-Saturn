@@ -11,6 +11,11 @@
 
 # Project Saturn                                                                                 
 **TODO:**       
+- [ ] tests!!!!
+- [ ] comments!!!
+
+
+**DONE:**
 - [x] play function
 - [x] -p flag : calls play function
 - [x] sequential play function
@@ -18,9 +23,7 @@
 - [x] -s : calls sequential play function
 - [x] -o : calls overlapping play function
 - [x] suppress error messages
-- [ ] tests!!!!
 - [x] mp3 flac etc support!!!!
-- [ ] comments!!!
 
 ## EPOCH ONE REQS
 - [x] A user must be able to interact with your program from the command line via a simple text-based interface.
