@@ -27,6 +27,7 @@ python src/saturn_cli.py --play file_path
 ```
 
 - Play a single audio file specified by `file_path`.
+- Note that file types other that `.wav` are not supported on Windows.
 
 ### `sequential` Command
 
