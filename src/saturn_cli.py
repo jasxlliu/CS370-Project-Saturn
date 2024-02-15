@@ -44,14 +44,17 @@ class CommandLineParser:
     def print_help(self):
         print("usage:", "python", self.argv[0], "--help")
         # print all commands and what they do
-        print("Commands:")
-        print("-h,--help\t\tprint this help message.")
-        print("-c,--count\t\tcount the number of arguments.")
-        print("-p,--play\t\tplay a file.")
-        print("-s,--sequential\t\tplay files sequentially.")
-        print("-o,--overlap\t\tplay files overlapping each other.")
-        print("-l,--list\t\tlist all audio files in the current directory recursively.")
-        print("-r,--rename\t\trename an audio file.")
+        print("Commands\t\tDescription\t\tUsage")
+        print("-h,--help\t\tprint this help message.\t\tpython " + self.argv[0] + " --help")
+        print("-c,--count\t\tcount the number of arguments.\t\tpython " + self.argv[0] + " --count")
+        print("-p,--play\t\tplay a file.\t\tpython " + self.argv[0] + " --play file_path")
+        print("-s,--sequential\t\tplay files sequentially.\t\tpython " + self.argv[0] + " --sequential file_path1 file_path2 ...")
+        print("-o,--overlap\t\tplay files overlapping each other.\t\tpython " + self.argv[0] + " --overlap file_path1 file_path2 ...")
+        print("-l,--list\t\tlist all audio files in the current directory recursively.\t\tpython " + self.argv[0] + " --list")
+        print("-r,--rename\t\trename an audio file.\t\tpython " + self.argv[0] + " --rename original_name new_name")
+        print("-t,--transcode\t\tchange audio format.\t\tpython " + self.argv[0] + " --transcode original_name new_name file_extension")
+        print("-b,--play-backwards\t\tplay a file backwards.\t\tpython " + self.argv[0] + " --play-backwards file_path")
+        print("-a,--concatenate\t\tconcatenate audio files.\t\tpython " + self.argv[0] + " --concatenate file_path1 file_path2 ... extension")
         sys.exit(0)
 
     def count_arguments(self):
@@ -73,7 +76,7 @@ class CommandLineParser:
             self.isPlaying = False
         else:
             self.isPlaying = True
-            sound = AudioSegment.from_file(file_path, format=file_path.split(".")[-1])
+            sound = AudioSegment.from_file(file_path, format=file_path.split(".")[-1] if file_path[0] != "." else file_path[1:].split(".")[-1])
             playback.play(sound)
             self.isPlaying = False
 
@@ -169,6 +172,57 @@ class CommandLineParser:
                 file=sys.stderr,
             )
             sys.exit(1)
+    
+    def transcode_command(self):
+        # change audio format
+        # usage python saturn_cli.py -t original_name new_name file_extension
+        if self.argvlen > 4:
+            original_name = self.argv[2].split(".")[0] if self.argv[2][0] != "." else "." + self.argv[2][1:].split(".")[0]
+            new_name = self.argv[3].split(".")[0] if self.argv[3][0] != "." else "." + self.argv[3][1:].split(".")[0]
+            extension = self.argv[-1].split(".")[-1] if self.argv[4][0] != "." else self.argv[4][1:].split(".")[-1]
+            sound = AudioSegment.from_file(original_name, format=extension)
+            sound.export(new_name + "." + extension, format=extension)
+        else:
+            print(
+                "Error: Please provide three arguments after the --transcode or -t option.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+
+
+    def play_backwards_command(self):
+        # play a file using the play method
+        if self.argvlen > 2:
+            file_path = self.argv[2]
+            if file_path[0] == ".":
+                file_path = str(os.getcwd()) + file_path[1:]
+            print("I am now playing", file_path)
+            self.play(file_path.reverse())
+        else:
+            print(
+                "Error: Please provide a file path after the --play or -p option.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+
+
+    def concatenate_command(self):
+        # concatenate multiple audio files (>2) into one file
+        # take the file paths, the new name, the new file extension, and the crossfade amount
+        if self.argvlen > 4:
+            file_paths = self.argv[2:-1]
+            new_name = self.argv[-2].split(".")[0] if self.argv[-2][0] != "." else "." + self.argv[-2][1:].split(".")[0]
+            extension = self.argv[-1].split(".")[-1] if self.argv[-1][0] != "." else self.argv[-1][1:].split(".")[-1]
+            sound = AudioSegment.from_file(file_paths[0], format=extension)
+            for file_path in file_paths[1:]:
+                sound = sound.append(AudioSegment.from_file(file_path, format=extension), crossfade=1000)
+            sound.export(new_name + "." + extension, format=extension)
+        else:
+            print(
+                "Error: Please provide at least three arguments after the --concatenate or -a option.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
 
     def parse_arguments(self):
         # parse the command line arguments and execute the corresponding command
@@ -189,6 +243,12 @@ class CommandLineParser:
                 self.list_command()
             case "-r" | "--rename":
                 self.rename_command()
+            case "-t" | "--transcode":
+                self.transcode_command()
+            case "-b" | "--play-backwards":
+                self.play_backwards_command()
+            case "-a" | "--concatenate":
+                self.concatenate_command()
             case _:
                 errors = self.argv[1:]
                 print(
