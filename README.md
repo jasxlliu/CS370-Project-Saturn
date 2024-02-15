@@ -1,7 +1,9 @@
-### BEFORE RUNNING CLI!!!!
-### INSTALL DEPENDENCIES!!!!!
-### CD INTO DIRECTORY AND USE `python -m pip install -r ./requirements.txt` !!!!
+# NOTE: Install dependencies with `python -m pip install -r ./requirements.txt` in the root directory of the project
 
+# NOTE: This requires ffmpeg to be installed on your system
+- if on windows, use scoop install ffmpeg
+- if on mac, use brew install ffmpeg
+- if on linux use your package manager to install ffmpeg
 
 
 # CS370-Project-Saturn                                                                                   
