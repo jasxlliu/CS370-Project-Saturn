@@ -3,4 +3,5 @@
 # we will presumably add to this list as needed
 
 simpleaudio # for playing WAV files
-python-vlc # for playing all other audio files (and additionally video files lol)
+ffmpeg-python # for playing other audio files on windows (potentially)
+pydub # for playing other audio files on windows (potentially)

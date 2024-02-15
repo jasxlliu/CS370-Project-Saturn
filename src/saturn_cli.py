@@ -2,9 +2,8 @@ import sys
 import os
 import threading
 import simpleaudio as sa
-if os.name != "nt":
-    import vlc
-
+from pydub import AudioSegment
+import pydub.playback as playback
 class CommandLineParser:
 
     """
@@ -72,20 +71,10 @@ class CommandLineParser:
             play_obj = wave_obj.play()
             play_obj.wait_done()
             self.isPlaying = False
-        elif os.name == "nt":
-            print("You are on windows, which is not well supported by python-vlc.\nPlease try playing a .wav file or using a different OS.",
-                    file=sys.stderr)
-            sys.exit(1)
         else:
             self.isPlaying = True
-            instance = vlc.Instance()
-            player = instance.media_player_new()
-            media = instance.media_new(file_path)
-            media.get_mrl()
-            player.set_media(media)
-            player.play()
-            while player.is_playing():
-                continue
+            sound = AudioSegment.from_file(file_path, format=file_path.split(".")[-1])
+            playback.play(sound)
             self.isPlaying = False
 
     def play_overlap(self, queue):
