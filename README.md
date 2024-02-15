@@ -9,7 +9,7 @@
   - ex. `sudo dnf install ffmpeg`
 
 
-# CS370-Project-Saturn                                                                                   
+# Project Saturn                                                                                 
 **TODO:**       
 - [x] play function
 - [x] -p flag : calls play function
