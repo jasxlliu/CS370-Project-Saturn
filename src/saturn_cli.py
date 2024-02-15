@@ -230,12 +230,7 @@ class CommandLineParser:
         # print all files in the current directory recursively with audio file extensions
         for root, dirs, files in os.walk(os.getcwd()):
             for file in files:
-                if (
-                    file[-4:] in self.audioFormats
-                    or file[-5:] in self.audioFormats
-                    or file[-6:] in self.audioFormats
-                    or file[-3:] in self.audioFormats
-                ):
+                if file.endswith(tuple(self.audioFormats)):
                     print(os.path.join(root, file))
 
     def rename_command(self):
