@@ -281,7 +281,7 @@ class CommandLineParser:
                 else "." + self.argv[3][1:].split(".")[0]
             )
             extension = (
-                self.argv[-1].split(".")[-1]
+                self.argv[4].split(".")[-1]
                 if self.argv[4][0] != "."
                 else self.argv[4][1:].split(".")[-1]
             )
