@@ -73,7 +73,7 @@ class CommandLineParser:
             play_obj.wait_done()
             self.isPlaying = False
         elif os.name == "nt":
-            print("You are on windows, which is not supported by python-vlc. Please try playing a wav file or use a different OS.",
+            print("You are on windows, which is not well supported by python-vlc.\nPlease try playing a .wav file or using a different OS.",
                     file=sys.stderr)
             sys.exit(1)
         else:
