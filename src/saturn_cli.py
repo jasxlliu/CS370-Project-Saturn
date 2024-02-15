@@ -79,7 +79,6 @@ class CommandLineParser:
 
     def print_help(self):
         # this is hacky, but it is the only way to get the help message to print nicely without too much work
-        print("Usage: python {} --help".format(self.argv[0]))
         print("Commands:            Description:                                 Usage:")
         print("\n-h,--help            Print this help message.                     python {} --help".format(self.argv[0]))
         print("-c,--count           Count the number of arguments.               python {} --count".format(self.argv[0]))
