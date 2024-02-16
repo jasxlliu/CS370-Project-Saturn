@@ -316,8 +316,10 @@ class CommandLineParser:
     def concatenate_command(self):
         # concatenate multiple audio files (>2) into one file
         # take the file paths, the new name, the new file extension, and the crossfade amount
+        # TODO fix this shit
         if self.argvlen > 4:
-            file_paths = self.argv[2:-1]
+            file_paths = self.argv[2:-3]
+            crossfade = self.argv[-3]
             new_name = (
                 self.argv[-2].split(".")[0]
                 if self.argv[-2][0] != "."
@@ -331,7 +333,7 @@ class CommandLineParser:
             sound = AudioSegment.from_file(file_paths[0], format=extension)
             for file_path in file_paths[1:]:
                 sound = sound.append(
-                    AudioSegment.from_file(file_path, format=extension), crossfade=1000
+                    AudioSegment.from_file(file_path, format=extension), crossfade=crossfade
                 )
             sound.export(new_name + "." + extension, format=extension)
         else:
