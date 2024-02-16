@@ -218,7 +218,7 @@ class CommandLineParser:
             sys.exit(1)
 
     def sequential_command(self):
-        # play files sequentiall using the play method
+        # play files sequentially using the play method
         file_paths = []
         if self.argvlen > 2:
             for i in self.argv[2:]:
