@@ -1,6 +1,6 @@
 # Command Line Audio Player
 
-This is a simple command-line audio player written in Python. It allows you to play, list, and rename audio files, as well as play multiple files sequentially or overlapping.
+This documentation provides information on a simple command-line audio player written in Python. The audio player allows users to play, list, and rename audio files, as well as play multiple files sequentially or overlapping.
 
 ## Usage
 
@@ -17,6 +17,9 @@ python src/saturn_cli.py [options] [arguments]
 - `-o`, `--overlap`: Play multiple audio files overlapping each other.
 - `-l`, `--list`: List all audio files in the current directory recursively.
 - `-r`, `--rename`: Rename an audio file.
+- `-t`, `--transcode`: Change audio format.
+- `-b`, `--play-backwards`: Play a file backward.
+- `-a`, `--concatenate`: Concatenate audio files.
 
 ## Commands
 
@@ -27,7 +30,7 @@ python src/saturn_cli.py --play file_path
 ```
 
 - Play a single audio file specified by `file_path`.
-- Note that file types other that `.wav` are not supported on Windows.
+- Note that file types other than `.wav` are not supported on Windows.
 
 ### `sequential` Command
 
@@ -60,6 +63,30 @@ python src/saturn_cli.py --rename original_name new_name
 ```
 
 - Rename an audio file. Provide the original and new names as arguments.
+
+### `transcode` Command
+
+```bash
+python src/saturn_cli.py --transcode original_name new_name file_extension
+```
+
+- Change audio format. Provide the original file name, new file name, and the desired file extension.
+
+### `play-backwards` Command
+
+```bash
+python src/saturn_cli.py --play-backwards file_path
+```
+
+- Play a file backward. Provide the file path as an argument.
+
+### `concatenate` Command
+
+```bash
+python src/saturn_cli.py --concatenate file_path1 file_path2 ... new_name extension
+```
+
+- Concatenate audio files into one file. Provide file paths, the new name, and the file extension.
 
 ## Examples
 
@@ -105,6 +132,35 @@ python src/saturn_cli.py --list
 python src/saturn_cli.py --rename old_name.wav new_name.wav
 ```
 
+8. Change audio format:
+
+```bash
+python src/saturn_cli.py --transcode original_name new_name file_extension
+```
+
+9. Play a file backward:
+
+```bash
+python src/saturn_cli.py --play-backwards audio_file.wav
+```
+
+10. Concatenate audio files:
+
+```bash
+python src/saturn_cli.py --concatenate file1.wav file2.wav new_file.wav wav
+```
+
 ## Note
 
 - Make sure to provide valid file paths and follow the specified command syntax.
+
+## Implementation Details
+
+The audio player is implemented in Python and uses the following libraries:
+
+- `simpleaudio`: for playing `.wav` files.
+- `pydub`: for handling various audio file formats and playback functionality.
+- `threading`: for concurrent playback of multiple files.
+- `os`: for file and directory operations.
+
+The command-line parser (`CommandLineParser` class) is responsible for parsing the provided arguments and executing the corresponding commands. The supported commands include playing, listing, renaming, changing formats, playing backward, and concatenating audio files. Ensure that the required dependencies are installed before using the command-line audio player.
