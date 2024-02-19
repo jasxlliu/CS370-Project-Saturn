@@ -36,8 +36,14 @@
 - [x] A user must be able to rename a sound.
 - [x] These requirements may be met either with a single large command-line program that implements all of them, or by a suite of smaller command-line programs that focus on a subset of features
 
-## Group members
-- Neel Troeger
-- Chris Gomez
-- Aidan von Buschwaldt
-- Jas Liu
+## Group member contributions
+- Neel Troeger: Code, Documentation, Use cases
+- Chris Gomez: Code, Use cases
+- Aidan von Buschwaldt: Use cases
+- Jas Liu: Code, Use cases
+
+## Code Testing
+
+To test the functionality of the code we performed manual testing. We tested all functions and their respective flags.
+
+To see full documentation of the project so far, please see the documentation.md file in the `docs` directory of the project.
