@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "saturn-manage-tags",
+  "private_key_id": "75ea5f585f593b6610cfea5aaf8edb4d13635e61",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDBie0P2wvyjgvM\n3Y5MyGJL3Vwr4dOn+2kQeoqJ8BZHgFEdgbR9f0fAe0vjpCX/pz+ntcNt1p884AU4\nMUHsQlDdj7hCQFub/5v7ZANvubgHpLAEU9AP4IqkzquRzuRiqJ4Q8+jaAz6/1hlL\nK1z1q0EttvPv+ivAUrKeTySg3SnnRsYbteX0iRGmpm2p5aA2kTAICp0+sfMRlzBz\nhpF/o92Iy/0HTFXNMoMlJPv1u85X7Tam7tmA1vRHpGgRCdD+IpFl36xajZCUUj7V\nl6oykzwlz9MggBvl7ycu5h6HariK6RKeC2UazExZewDLJjQChrcB8w1fwA/npu3D\n6OacmRGVAgMBAAECggEAI9o1oKzO20mGFRbr7/xk/THOC9EDQQiZT3Sr6l6f+fHi\n1Oj8swzbkWQlzE9RvLjSWXKZ9+R8zi2fueeiEy67xTeFBjze25iv4BOIcW+BkGTp\nOHwAPJi3hk1Eyjd95mrfETvl5FEalDYIrHyldVsasWnFaay54yBOt3XozqX5x75p\nUBZZGhVSvRQ6n6KvdgVSUxC9ARB2ERgmw50P678VE1KUWgL0m8Rjj/R51uh6y5Si\nCpldBUGQPEYcs6gPcOQ9z8qHc1S78/ck87+v4o6tj7wTau0RcgOM2PMP67zCZrH/\nIkoKThk99/ele0bCAFhADKG1JEdRgTOrhKjUrHoW0QKBgQDzzCW1HVGjxioYFqWB\nk6OfETlkiwMsF+zQSPvAFk0WTRytIOzzK+yrpLszKTk8v8od4wPyNB3y/mrgltAK\nVvLRHF3YLC+OLlQS+AmZ8EDBZaKhO9g5T0Gli4v77CVuX85T2NGjFnrYKJrN44JS\n3Ta8Nu52k7xEiyOS/szxT+YOXQKBgQDLOcxzrPX7Csvbh5qvFbTDPJHlvc4RF8sg\nOfsv3Jjw1AKRehDuPRdW2JB2FEVh0lkF0yTeHTEqk6RaiVw3+P+C95GN4cGa7v1M\nScHRP2PMrGJO9ffTmCoZPTYUgQDyFKj8x5VoexuQ5/+jyvJuYW9j4TzU1WN6jBHk\n8UcoRQSsmQKBgQCCNvu87Nf6HZHGI/JqbyzpfQ2mgglDt9OovBKa2k56Jt22Kuvk\nRgW299l0zgPgSp/trp8g8m08qF71bhfYLfCrd/c3ywHrcxs8tnaKXiR4J4zhiVFH\n6ukpPouaFts3RLyzVA9EiHE8mxNz/JxTHgxqIvzjIK1h/t8VWDqmeQJrkQKBgAFB\ngS7x0a9UeMAJjX4pfy15sVkfHCfk4r93PEMmdNeAJ+foPjSKshs6SWJBa9BX8W7k\nyCSLP6OIuApLMQOziTiw+PhMfdrMQUp4Zjc50g8QvabJRFfNZ+0yAKSNy4izcfvl\n69lycVAq7tx/Q5JFDeArIyoZi3zVYsLsbskj7Ax5AoGBAKZC/xbvHmjJcGf1JPU4\nAD3m8vfmjjAUSt3dGt2T+2HV9X+DbBFoN4DvYhdvUyt7oWKc8357NuUjyp8/suIn\nD+Is73cdTecwpLFsOqjRvnvPA50SBrQuC668gdzpfAiS+ajSSD1Y9o14ePZAbpl1\natxXgdB9cUyxaG86x6TPxXgD\n-----END PRIVATE KEY-----\n",
+  "client_email": "saturn-chris@saturn-manage-tags.iam.gserviceaccount.com",
+  "client_id": "103692238045801115701",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/saturn-chris%40saturn-manage-tags.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
