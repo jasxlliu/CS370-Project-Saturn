@@ -148,7 +148,7 @@ class CommandLineParser:
 
     def play(self, file_path):
         # play a file using the simpleaudio library
-        if file_path[-4:] == ".wav":
+        if file_path.endswith(".wav"):
             self.isPlaying = True
             wave_obj = sa.WaveObject.from_wave_file(file_path)
             play_obj = wave_obj.play()
@@ -305,7 +305,20 @@ class CommandLineParser:
             if file_path[0] == ".":
                 file_path = str(os.getcwd()) + file_path[1:]
             print("I am now playing", file_path)
-            self.play(file_path.reverse())
+            self.isPlaying = True
+            # can't use the play function because it only takes the file path.
+            # this will have to be ammended in the future
+            # TODO ^
+            sound = AudioSegment.from_file(
+                file_path,
+                format=(
+                    file_path.split(".")[-1]
+                    if file_path[0] != "."
+                    else file_path[1:].split(".")[-1]
+                ),
+            )
+            playback.play(sound.reverse())
+            self.isPlaying = False
         else:
             print(
                 "Error: Please provide a file path after the --play or -p option.",
@@ -333,7 +346,8 @@ class CommandLineParser:
             sound = AudioSegment.from_file(file_paths[0], format=extension)
             for file_path in file_paths[1:]:
                 sound = sound.append(
-                    AudioSegment.from_file(file_path, format=extension), crossfade=crossfade
+                    AudioSegment.from_file(file_path, format=extension),
+                    crossfade=crossfade,
                 )
             sound.export(new_name + "." + extension, format=extension)
         else:

@@ -7,7 +7,8 @@ TODO: not really working right now?
 """
 
 import sys
-sys.path.append('../src')
+
+sys.path.append("../src")
 import unittest
 from saturn_cli import CommandLineParser as saturn
 
@@ -17,7 +18,7 @@ class TestSounds(unittest.TestCase):
     sound2 = "../sounds/toaster-2.wav"
     sounds = [sound1, sound2]
     parser = saturn(sys.argv)
-        
+
     def test_play_audio(self):
         print("TESTING PLAY CALLED")
         self.assertTrue(self.parser.play_audio(self.sound1))
@@ -26,10 +27,11 @@ class TestSounds(unittest.TestCase):
         print("TESTING PLAY OVERLAP CALLED")
         for i in self.sounds:
             self.assertTrue(self.parser.play_audio(i))
-    
+
     def test_play_sequential(self):
         print("TESTING PLAY SEQUENTIAL CALLED")
         self.assertTrue(self.parser.play_sequential(self.sounds))
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
