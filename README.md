@@ -8,6 +8,19 @@
   - ex. `sudo pacman -S ffmpeg`
   - ex. `sudo dnf install ffmpeg`
 
+## CONNECTING TO MYSQL WORKBENCH
+- [x] Start by downloading the SQLTools extension developed by Matheus Teixeira.
+- [x] Navigate to SQLtools extensions, accessible from the left panel.
+- [x] Click on "add new connection", then select "Search VSCode marketplace".
+- [x] Locate and install "SQLTools MySQL/MariaDB" from the available options, typically found as the first link.
+- [x] On SQLTools Settings tab, click on MySQL and enter the following information...
+- [x] Connection name: saturn_sql
+- [x] Server Address: localhost
+- [x] Port: 3307
+- [x] Username: root
+- [x] Password word: whatever you want but I suggest Ask on connect. Here is the password: !WhitmanMemo08?
+- [x] Test/save the connection.
+- [x] Before running SQL commands each time, make sure you connect/disconnect to the database. You can use the SQLTools to view tables/data of our playlists.
 
 # Project Saturn                                                                                 
 **TODO:**       
