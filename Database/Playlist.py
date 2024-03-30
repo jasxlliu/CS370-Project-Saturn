@@ -2,7 +2,6 @@ import wave
 import os
 from datetime import datetime
 import mysql.connector
-from mysql.connector import errorcode
 
 class Playlist:
     """
@@ -14,11 +13,12 @@ class Playlist:
     Methods:
         __init__(self):
             Initializes the Playlist object. Creates a connection to the MySQL database.
-            TODO: Initialize table SoundList to hold info on the default loaded sounds
-                  from our GitHub sounds file (refer to UML diagram).
 
         create_database_connection(self):
             Establishes a secure connection to the MySQL Workbench.
+        
+        init_playlist(self):
+            Initializes soundlist table in database based on the sounds in the sounds directory.
 
         create(self):
             Adds an option for the user to create a new playlist.
@@ -61,18 +61,26 @@ class Playlist:
     def init_playlist(self):
         # Create a cursor object to execute SQL queries
         cursor = self.cnx.cursor()
-        
-        # Example SQL query to insert data into a table
+
+        # SQL query to insert data from our sounds directory into a table
         insert_query = ("INSERT INTO soundlist"
                         "(Title, Length, IsEdited, DateCreated) "
                         "VALUES (%s, %s, %s, %s)")
-        
+
         for filename in os.listdir(self.sound_dir):
-            print(filename)
             if filename.endswith(".wav"):
                 file_path = os.path.join(self.sound_dir, filename)
                 # Get the title from the filename (remove the extension)
                 title = os.path.splitext(filename)[0]
+
+                # SQL query to check if the title already exists in the table
+                check_query = "SELECT COUNT(*) FROM soundlist WHERE Title = %s"
+                cursor.execute(check_query, (title,))
+                result = cursor.fetchone()
+
+                if result[0] > 0:
+                    print(f"{title} already exists in the database.")
+                    continue
 
                 try:
                     # Get the length of the .wav file
@@ -90,24 +98,19 @@ class Playlist:
                 # Get the current date and time
                 date_created = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-                # Data to be inserted into the table
-                print("title: ", type(title))
-                print("duration: ", type(duration))
-                print("is_edited: ", type(is_edited))
-                print("date_created: ", date_created)
                 data = (title, duration, is_edited, date_created)
-                
+
                 # Execute the query
                 cursor.execute(insert_query, data)
 
         # Commit changes to the database
-        print("test")
         self.cnx.commit()
-        print("Data inserted successfully")
-        
+        print("Data in sounds directory inserted successfully")
+
         # Close cursor and connection
         cursor.close()
         self.cnx.close()
+
     
     def create(self):
         pass
