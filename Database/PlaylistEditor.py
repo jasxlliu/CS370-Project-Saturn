@@ -34,6 +34,7 @@ class PlaylistEditor:
     """
     def __init__(self, sound_dir):
         self.sound_dir = sound_dir
+        self.sound_list = []
         self.cnx = None
         self.cursor = None
         # self.connect_to_my_sql()
@@ -95,6 +96,9 @@ class PlaylistEditor:
                 self.cursor.execute(check_query_soundplaylistsinfo, (title,))
                 result_soundplaylistsinfo = self.cursor.fetchone()
 
+                if title not in self.sound_list:
+                    self.sound_list.append(title)
+                    
                 if result_soundlist[0] > 0:
                     print(f"{title} already exists in the soundlist database.")
                 else:

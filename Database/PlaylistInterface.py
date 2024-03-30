@@ -55,24 +55,47 @@ class PlaylistInterface():
     
     def play_sound_in_playlist(self, sound_title, sound_playlist):
         # verify sound_title and sound_playlist valid.
-        #if sound_playlist not in self.playlist_list:
-         #   raise Exception("Invalid title or playlist was entered.")
+        if sound_title not in self.playlist_manager.sound_list or sound_playlist not in self.playlist_list:
+            raise Exception(f'Invalid sound name: {sound_title} or playlist name: {sound_playlist}')
         
         # play the sound.
         parser = CommandLineParser(sys.argv)
         parser.play(parent_dir + "/sounds/" + sound_title + ".wav")
         
+    def add_sound_into_playlist(self, sound_title, sound_playlist):
+        # verify sound_title, sound_playlist exits.
+        if sound_title not in self.playlist_manager.sound_list or sound_playlist not in self.playlist_list:
+            raise Exception(f'Invalid sound name: {sound_title} or playlist name: {sound_playlist}')
+        
+        # TODO: verify sound_title not already in sound_playlist; database lookup.
+        
+        # insert it.
+        self.playlist_manager.open_connection()
+        query = "INSERT INTO soundplaylistsinfo (SoundTitle, PlaylistTitle) VALUES (%s, %s)"
+        values = (sound_title, sound_playlist)
+        try:
+            self.playlist_manager.open_connection()
+            self.playlist_manager.cursor.execute(query, values)
+            self.playlist_manager.cnx.commit()
+        except Exception as e:
+            print(f"Error adding sound to playlist: {e}")
+        finally:
+            self.playlist_manager.close_connection()
+        
         
 if __name__ == "__main__":
     # create a command line parser and parse the command line arguments
-    playlist = PlaylistInterface([])
+    playlist = PlaylistInterface(["Liked"])
     playlist_manager = PlaylistEditor("../sounds")
     
     
+    
     # commands to run.
-    #playlist_manager.init_playlist()
+    playlist_manager.init_playlist()
+    print(playlist_manager.sound_list)
     #playlist.play_sound_in_playlist("toaster", "N/A")
     
+    # playlist.add_sound_into_playlist("coffee-slurp-2", "Liked")
     
     # we can sort based on Title, Length, and DateCreated.
     #playlist.sort_playlist("Title")
