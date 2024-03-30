@@ -17,6 +17,7 @@
 - [x] Connection name: saturn_sql
 - [x] Server Address: localhost
 - [x] Port: 3307
+- [x] Database: soundarchive
 - [x] Username: root
 - [x] Password word: whatever you want but I suggest Ask on connect. Here is the password: !WhitmanMemo08?
 - [x] Test/save the connection.
