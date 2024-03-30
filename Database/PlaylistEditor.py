@@ -18,7 +18,7 @@ class PlaylistEditor:
             Establishes a secure connection to the MySQL Workbench.
         
         init_playlist(self):
-            Initializes soundlist table in database based on the sounds in the sounds directory.
+            Initializes soundlist and soundplaylistinfo table in database based on the sounds in the sounds directory.
 
         create(self):
             Adds an option for the user to create a new playlist.
@@ -66,61 +66,71 @@ class PlaylistEditor:
         self.cnx.close()
         print(self.cursor)
         self.cursor.close()
-    
+
     def init_playlist(self):
+        # OPEN CONNECTION
         self.open_connection()
         
-        # Create a cursor object to execute SQL queries
-        # cursor = self.cnx.cursor()
-
         # SQL query to insert data from our sounds directory into a table
-        insert_query = ("INSERT INTO soundlist"
+        insert_query_soundlist = ("INSERT INTO soundlist"
                         "(Title, Length, IsEdited, DateCreated) "
                         "VALUES (%s, %s, %s, %s)")
+        insert_query_soundplaylistsinfo = ("INSERT INTO soundplaylistsinfo"
+                        "(SoundTitle, PlaylistTitle)"
+                        "VALUES (%s, %s)")
 
         for filename in os.listdir(self.sound_dir):
             if filename.endswith(".wav"):
                 file_path = os.path.join(self.sound_dir, filename)
-                # Get the title from the filename (remove the extension)
+                # Get the title.
                 title = os.path.splitext(filename)[0]
 
-                # SQL query to check if the title already exists in the table
-                check_query = "SELECT COUNT(*) FROM soundlist WHERE Title = %s"
-                self.cursor.execute(check_query, (title,))
-                result = self.cursor.fetchone()
+                # SQL query to check if the title already exists in the soundlist table
+                check_query_soundlist = "SELECT COUNT(*) FROM soundlist WHERE Title = %s"
+                self.cursor.execute(check_query_soundlist, (title,))
+                result_soundlist = self.cursor.fetchone()
 
-                if result[0] > 0:
-                    print(f"{title} already exists in the database.")
-                    continue
+                # SQL query to check if the title already exists in the soundplaylistsinfo table
+                check_query_soundplaylistsinfo = "SELECT COUNT(*) FROM soundplaylistsinfo WHERE SoundTitle = %s"
+                self.cursor.execute(check_query_soundplaylistsinfo, (title,))
+                result_soundplaylistsinfo = self.cursor.fetchone()
 
-                try:
-                    # Get the length of the .wav file
-                    with wave.open(file_path, 'r') as wav_file:
-                        frames = wav_file.getnframes()
-                        rate = wav_file.getframerate()
-                        duration = frames / float(rate)  # Duration in seconds
-                except Exception as e:
-                    print(f"Error processing {filename}: {e}")
-                    continue
+                if result_soundlist[0] > 0:
+                    print(f"{title} already exists in the soundlist database.")
+                else:
+                    try:
+                        # Get the length of the .wav file
+                        with wave.open(file_path, 'r') as wav_file:
+                            frames = wav_file.getnframes()
+                            rate = wav_file.getframerate()
+                            duration = frames / float(rate)  # Duration in seconds
+                    except Exception as e:
+                        print(f"Error processing {filename}: {e}")
+                        continue
 
-                # Set IsEdited to False
-                is_edited = False
+                    # Get the current date and time
+                    date_created = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-                # Get the current date and time
-                date_created = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                    soundlist_data = (title, duration, False, date_created)
 
-                data = (title, duration, is_edited, date_created)
+                    # Execute the query
+                    self.cursor.execute(insert_query_soundlist, soundlist_data)
+                    self.cnx.commit()
 
-                # Execute the query
-                self.cursor.execute(insert_query, data)
+                if result_soundplaylistsinfo[0] > 0:
+                    print(f"{title} already exists in the soundplaylistsinfo database.")
+                else:
+                    soundplaylistsinfo_data = (title, "N/A")
 
-        # Commit changes to the database
-        self.cnx.commit()
+                    # Execute the query
+                    self.cursor.execute(insert_query_soundplaylistsinfo, soundplaylistsinfo_data)
+                    self.cnx.commit()
+
         print("Data in sounds directory inserted successfully")
 
-        # Close cursor and connection
-        # cursor.close()
+        # CLOSE CONNECTION.
         self.close_connection()
+
     
     def create(self):
         pass

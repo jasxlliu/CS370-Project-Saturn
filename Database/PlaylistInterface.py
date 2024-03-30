@@ -1,4 +1,11 @@
 from PlaylistEditor import PlaylistEditor
+import sys
+import os
+
+parent_dir = os.path.dirname(os.getcwd())
+print(parent_dir)
+sys.path.insert(0, parent_dir + "/src")
+from saturn_cli import CommandLineParser
 
 class PlaylistInterface():
     """
@@ -46,13 +53,26 @@ class PlaylistInterface():
     def get_playlist_list(self):
         return self.playlist_list
     
+    def play_sound_in_playlist(self, sound_title, sound_playlist):
+        # verify sound_title and sound_playlist valid.
+        #if sound_playlist not in self.playlist_list:
+         #   raise Exception("Invalid title or playlist was entered.")
+        
+        # play the sound.
+        parser = CommandLineParser(sys.argv)
+        parser.play(parent_dir + "/sounds/" + sound_title + ".wav")
+        
         
 if __name__ == "__main__":
     # create a command line parser and parse the command line arguments
     playlist = PlaylistInterface([])
     playlist_manager = PlaylistEditor("../sounds")
+    
+    
+    # commands to run.
     #playlist_manager.init_playlist()
+    #playlist.play_sound_in_playlist("toaster", "N/A")
     
     
     # we can sort based on Title, Length, and DateCreated.
-    playlist.sort_playlist("Title")
+    #playlist.sort_playlist("Title")
