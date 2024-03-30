@@ -13,13 +13,15 @@ class PlaylistInterface():
     
     Attributes:
         playlist_manager (PlaylistManager): An instance of the PlaylistManager class.
+        sort_type (dict): A dictionary containing different ways to sort a playlist. Keys represent sort options, and values provide descriptions or implementations of the sorting method.
+        playlist_list(list): A list containing playlists. Each element in the list represents a playlist.
 
     Methods:
-        __init__(self):
-            Initializes the PlaylistInterface with a PlaylistManager instance.
-        
-        sort_playlist():
-            Sorts the playlist by sound title, length, or date added to playlist.
+        sort_playlist: Sorts the playlist by sound title, length, or date added to playlist.
+        create_playlist: Creates a new playlist name. The new playlist name is added to playlist_list.
+        play_sound_in_playlist: Plays a sound from one of the playlists. Plays using the play method in our CommandLineParser class
+        add_sound_into_playlist: Adds a sound into a defined playlist.
+        remove_sound_from_playlist: Removes a sound from a defined playlist.
     """
     
     def __init__(self, playlist_list):
@@ -50,9 +52,6 @@ class PlaylistInterface():
         if playlist_name not in self.playlist_list:
             self.playlist_list.append(playlist_name)
     
-    def get_playlist_list(self):
-        return self.playlist_list
-    
     def play_sound_in_playlist(self, sound_title, sound_playlist):
         # verify sound_title and sound_playlist valid.
         if sound_title not in self.playlist_manager.sound_list or sound_playlist not in self.playlist_list:
@@ -81,7 +80,11 @@ class PlaylistInterface():
             print(f"Error adding sound to playlist: {e}")
         finally:
             self.playlist_manager.close_connection()
-        
+            
+    def remove_sound_from_playlist(self, sound_title, sound_playlist):
+        # verify sound_title and sound_playlist valid.
+        if sound_title not in self.playlist_manager.sound_list or sound_playlist not in self.playlist_list:
+            raise Exception(f'Invalid sound name: {sound_title} or playlist name: {sound_playlist}')
         
 if __name__ == "__main__":
     # create a command line parser and parse the command line arguments

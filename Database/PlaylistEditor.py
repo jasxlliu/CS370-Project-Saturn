@@ -5,32 +5,17 @@ import mysql.connector
 
 class PlaylistEditor:
     """
-    Represents a playlist management system for storing sounds in a MySQL database.
+    Represents a playlist management system for creating MySQL workbench connection and initializing our database.
 
     Attributes:
-        None (No specific attributes defined in this class)
+        sound_dir (str): Directory of our sounds file.
+        sound_list (list): A list containing sounds in our sound archive. Each element in the list represents a sound.
 
     Methods:
-        __init__(self):
-            Initializes the Playlist object. Creates a connection to the MySQL database.
-
-        create_database_connection(self):
-            Establishes a secure connection to the MySQL Workbench.
-        
-        init_playlist(self):
-            Initializes soundlist and soundplaylistinfo table in database based on the sounds in the sounds directory.
-
-        create(self):
-            Adds an option for the user to create a new playlist.
-            TODO: Show updates related to playlist creation in the MySQL Workbench.
-
-        add_sound(self):
-            Allows the user to add a sound to an existing playlist.
-            TODO: Implement the logic for adding sounds to the playlist.
-
-        remove_sound(self, sound_title):
-            Enables the user to remove a sound from an existing playlist.
-            TODO: Implement the logic for removing sounds from the playlist.
+        create_database_connection: Establishes a secure connection to the MySQL Workbench.
+        open_connection: Opens the connection to Saturn's SQL database.
+        close_connection: Closes the connection to Saturn's SQL database.
+        init_playlist: Initializes tables found in our database.
     """
     def __init__(self, sound_dir):
         self.sound_dir = sound_dir
@@ -134,13 +119,3 @@ class PlaylistEditor:
 
         # CLOSE CONNECTION.
         self.close_connection()
-
-    
-    def create(self):
-        pass
-    
-    def add_sound(self):
-        pass
-    
-    def remove_sound(self, sound_title):
-        pass
