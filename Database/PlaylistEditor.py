@@ -109,7 +109,7 @@ class PlaylistEditor:
                 if result_soundplaylistsinfo[0] > 0:
                     print(f"{title} already exists in the soundplaylistsinfo database.")
                 else:
-                    soundplaylistsinfo_data = (title, "N/A")
+                    soundplaylistsinfo_data = (title, "Your Library")
 
                     # Execute the query
                     self.cursor.execute(insert_query_soundplaylistsinfo, soundplaylistsinfo_data)

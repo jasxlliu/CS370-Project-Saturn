@@ -22,6 +22,7 @@ class PlaylistInterface():
         play_sound_in_playlist: Plays a sound from one of the playlists. Plays using the play method in our CommandLineParser class
         add_sound_into_playlist: Adds a sound into a defined playlist.
         remove_sound_from_playlist: Removes a sound from a defined playlist.
+        view_playlist: Displays all the songs from a requested playlist.
     """
     
     def __init__(self, playlist_list):
@@ -86,6 +87,26 @@ class PlaylistInterface():
         if sound_title not in self.playlist_manager.sound_list or sound_playlist not in self.playlist_list:
             raise Exception(f'Invalid sound name: {sound_title} or playlist name: {sound_playlist}')
         
+    def view_playlist(self, playlist_title):
+        # verify playlist is valid.
+        if playlist_title not in self.playlist_list:
+            raise Exception(f'Invalid playlist: {playlist_title}')
+        
+        # display all sounds in playlist_title.
+        query = ("SELECT SoundTitle FROM soundplaylistsinfo WHERE PlaylistTitle = %s")
+        try:
+            self.playlist_manager.open_connection()
+            self.playlist_manager.cursor.execute(query, (playlist_title,))
+            result = self.playlist_manager.cursor.fetchone()
+            print(result)
+            self.playlist_manager.cnx.commit()
+        
+        except Exception as e:
+            print(f"Error showing playlist: {e}")
+        
+        finally:
+            self.playlist_manager.close_connection()
+        
 if __name__ == "__main__":
     # create a command line parser and parse the command line arguments
     playlist = PlaylistInterface(["Liked"])
@@ -94,8 +115,9 @@ if __name__ == "__main__":
     
     
     # commands to run.
-    playlist_manager.init_playlist()
-    print(playlist_manager.sound_list)
+    #playlist_manager.init_playlist()
+    #print(playlist.playlist_list)
+    #playlist.view_playlist("Liked")
     #playlist.play_sound_in_playlist("toaster", "N/A")
     
     # playlist.add_sound_into_playlist("coffee-slurp-2", "Liked")
