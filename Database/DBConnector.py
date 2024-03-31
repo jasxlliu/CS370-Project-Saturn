@@ -3,9 +3,9 @@ import os
 from datetime import datetime
 import mysql.connector
 
-class PlaylistEditor:
+class DBConnector:
     """
-    Represents a playlist management system for creating MySQL workbench connection and initializing our database.
+    Provides a streamlined interface for connecting to the MySQL Workbench/database.
 
     Attributes:
         sound_dir (str): Directory of our sounds file.
@@ -50,7 +50,6 @@ class PlaylistEditor:
     def close_connection(self):
         print("<<Closing>> connection to MySQL")
         self.cnx.close()
-        print(self.cursor)
         self.cursor.close()
 
     def init_playlist(self):
@@ -115,7 +114,7 @@ class PlaylistEditor:
                     self.cursor.execute(insert_query_soundplaylistsinfo, soundplaylistsinfo_data)
                     self.cnx.commit()
 
-        print("Data in sounds directory inserted successfully")
+        print("Data in sounds directory inserted successfully\n\n\n\n")
 
         # CLOSE CONNECTION.
         self.close_connection()
