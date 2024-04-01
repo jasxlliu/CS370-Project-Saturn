@@ -113,7 +113,7 @@ if __name__ == "__main__":
     manager = PlaylistManager(["Your Library"])
     manager.connector.init_playlist()
     
-    """
+    
     print(f"Playlists: {manager.playlist_list}")
     print(f"Sound library: {manager.connector.sound_list}")
     
@@ -133,4 +133,4 @@ if __name__ == "__main__":
     
     # playing a sound.
     manager.play_sound_in_playlist("toaster", "Your Library")
-    """
+    """"""

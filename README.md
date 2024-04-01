@@ -50,8 +50,35 @@
 - [x] A user must be able to rename a sound.
 - [x] These requirements may be met either with a single large command-line program that implements all of them, or by a suite of smaller command-line programs that focus on a subset of features
 
+## EPOCH TWO REQS
+Part a: enhanced ways to listen to sounds. 
+Our goal is to offer users a variety of distinctive methods to listen to sounds and customize them, enabling them to edit and save their creations effortlessly.
+- [x]: Insert audio clips in the middle of a sound during editing.
+- [x]: Rename an audio file.
+- [x]: Change sound audio format.
+- [x]: Play a sound backwards.
+- [x]: Concatenate audio file.
+- [x]: Adjust speed of sound clip.
+- [x]: Adjust sound pitch.
+
+Part b: ways to characterize and organize the sounds. 
+Our goal is to establish a comprehensive database and empower users to categorize and organize sounds efficiently. Users will have the flexibility to specify the table column for sorting purposes, enhancing their ability to navigate and manage sound data effectively.
+- [x]: Sort playlist by title.
+- [x]: Sort playlist by date.
+- [x]: Sort playlist by sound length.
+
 ## Group members
 - Neel Troeger
 - Chris Gomez
 - Aidan von Buschwaldt
 - Jas Liu
+
+
+## Epoch Two Contributions.
+- [x] Chris Gomez: DBConnector.py, PlaylistManager.py, UML diagram, started gui.py, and contributed to unit_testing.py, story map, and user stories.
+
+## Epoch Two Challenges and modification anticipations.
+- [x] Chris Gomez: I tackled the challenge of setting up a connection to a MySQL workbench on my laptop. It was my first time dealing with database connections, cursors, and writing queries. Despite the initial difficulties, I successfully established the link. Looking ahead, I plan to move away from using lists to manage playlist sounds and focus on optimizing query performance through indexing strategies.
+
+## Command Lines.
+-[x] python .\PlaylistManager.py in database directory to initialize playlists and create an example playlist and add sounds to it and view it (part b of epoch 2)! 
