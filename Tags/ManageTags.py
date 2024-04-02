@@ -1,6 +1,7 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
+
 class ManageTags:
     def __init__(self, tags=None):
         # Initialize tags with an empty list or provided tags
@@ -9,24 +10,38 @@ class ManageTags:
     def __enter__(self):
         try:
             # Set up Google Sheets API credentials
-            scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-            credentials = ServiceAccountCredentials.from_json_keyfile_name('./saturn-manage-tags-75ea5f585f59.json', scope)
+            scope = [
+                "https://spreadsheets.google.com/feeds",
+                "https://www.googleapis.com/auth/drive",
+            ]
+            credentials = ServiceAccountCredentials.from_json_keyfile_name(
+                "./saturn-manage-tags-75ea5f585f59.json", scope
+            )
             gc = gspread.authorize(credentials)
 
             # Open the spreadsheet by URL (you can also use the key)
-            sh = gc.open_by_url('https://docs.google.com/spreadsheets/d/1RdV1p_4uHyulaHqmEWiahajxj9ZPFTMJy8j1VrR7L34/edit#gid=0')
+            sh = gc.open_by_url(
+                "https://docs.google.com/spreadsheets/d/1RdV1p_4uHyulaHqmEWiahajxj9ZPFTMJy8j1VrR7L34/edit#gid=0"
+            )
 
             # Access the first worksheet
-            worksheet = sh.sheet1  
-            
+            worksheet = sh.sheet1
+
             # kinda wanna start fresh everytime?
             worksheet.clear()
 
             # Example: Update cell A1 with a new value
-            worksheet.append_row(['Title', 'Length', 'Date Created', 'Folders'])
+            worksheet.append_row(["Title", "Length", "Date Created", "Folders"])
 
             # This is how I'm thinking a sound tag import thing might look like.
-            worksheet.append_row(['Coffee Slurp', '1.05 seconds', '2/27/2024 5:16 PM', '[Favorite, Chill Sound]'])
+            worksheet.append_row(
+                [
+                    "Coffee Slurp",
+                    "1.05 seconds",
+                    "2/27/2024 5:16 PM",
+                    "[Favorite, Chill Sound]",
+                ]
+            )
 
             # Return the worksheet object for further interactions
             return worksheet
@@ -54,7 +69,7 @@ class ManageTags:
 
 if __name__ == "__main__":
     # Instantiate an object of the ManageTags class
-    my_tags_manager = ManageTags(tags=['tag1', 'tag2', 'tag3'])
+    my_tags_manager = ManageTags(tags=["tag1", "tag2", "tag3"])
 
     # Example: Create a new tag
     my_tags_manager.create_tag("new_tag")

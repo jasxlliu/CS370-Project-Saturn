@@ -3,6 +3,7 @@ import os
 from datetime import datetime
 import mysql.connector
 
+
 class DBConnector:
     """
     Provides a streamlined interface for connecting to the MySQL Workbench/database.
@@ -17,24 +18,25 @@ class DBConnector:
         close_connection: Closes the connection to Saturn's SQL database.
         init_playlist: Initializes tables found in our database.
     """
+
     def __init__(self, sound_dir):
         self.sound_dir = sound_dir
         self.sound_list = []
         self.cnx = None
         self.cursor = None
         # self.connect_to_my_sql()
-    
+
     def open_connection(self):
         print("<<Opening>> connection to MySQL")
         config = {
-            'user': 'root',
-            'password': '!WhitmanMemo08?',
-            'host': '127.0.0.1',
-            'port': 3307,
-            'database': 'soundarchive',
-            'raise_on_warnings': True
+            "user": "root",
+            "password": "!WhitmanMemo08?",
+            "host": "127.0.0.1",
+            "port": 3307,
+            "database": "soundarchive",
+            "raise_on_warnings": True,
         }
-        
+
         try:
             self.cnx = mysql.connector.connect(**config)
             self.cursor = self.cnx.cursor()
@@ -46,7 +48,7 @@ class DBConnector:
                 print("Database does not exist")
             else:
                 print("Could not connect to MySQL:", err)
-                
+
     def close_connection(self):
         print("<<Closing>> connection to MySQL")
         self.cnx.close()
@@ -55,14 +57,18 @@ class DBConnector:
     def init_playlist(self):
         # OPEN CONNECTION
         self.open_connection()
-        
+
         # SQL query to insert data from our sounds directory into a table
-        insert_query_soundlist = ("INSERT INTO soundlist"
-                        "(Title, Length, IsEdited, DateCreated) "
-                        "VALUES (%s, %s, %s, %s)")
-        insert_query_soundplaylistsinfo = ("INSERT INTO soundplaylistsinfo"
-                        "(SoundTitle, PlaylistTitle)"
-                        "VALUES (%s, %s)")
+        insert_query_soundlist = (
+            "INSERT INTO soundlist"
+            "(Title, Length, IsEdited, DateCreated) "
+            "VALUES (%s, %s, %s, %s)"
+        )
+        insert_query_soundplaylistsinfo = (
+            "INSERT INTO soundplaylistsinfo"
+            "(SoundTitle, PlaylistTitle)"
+            "VALUES (%s, %s)"
+        )
 
         for filename in os.listdir(self.sound_dir):
             if filename.endswith(".wav"):
@@ -71,24 +77,28 @@ class DBConnector:
                 title = os.path.splitext(filename)[0]
 
                 # SQL query to check if the title already exists in the soundlist table
-                check_query_soundlist = "SELECT COUNT(*) FROM soundlist WHERE Title = %s"
+                check_query_soundlist = (
+                    "SELECT COUNT(*) FROM soundlist WHERE Title = %s"
+                )
                 self.cursor.execute(check_query_soundlist, (title,))
                 result_soundlist = self.cursor.fetchone()
 
                 # SQL query to check if the title already exists in the soundplaylistsinfo table
-                check_query_soundplaylistsinfo = "SELECT COUNT(*) FROM soundplaylistsinfo WHERE SoundTitle = %s"
+                check_query_soundplaylistsinfo = (
+                    "SELECT COUNT(*) FROM soundplaylistsinfo WHERE SoundTitle = %s"
+                )
                 self.cursor.execute(check_query_soundplaylistsinfo, (title,))
                 result_soundplaylistsinfo = self.cursor.fetchone()
 
                 if title not in self.sound_list:
                     self.sound_list.append(title)
-                    
+
                 if result_soundlist[0] > 0:
                     print(f"{title} already exists in the soundlist database.")
                 else:
                     try:
                         # Get the length of the .wav file
-                        with wave.open(file_path, 'r') as wav_file:
+                        with wave.open(file_path, "r") as wav_file:
                             frames = wav_file.getnframes()
                             rate = wav_file.getframerate()
                             duration = frames / float(rate)  # Duration in seconds
@@ -97,7 +107,7 @@ class DBConnector:
                         continue
 
                     # Get the current date and time
-                    date_created = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                    date_created = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
                     soundlist_data = (title, duration, False, date_created)
 
@@ -111,7 +121,9 @@ class DBConnector:
                     soundplaylistsinfo_data = (title, "Your Library")
 
                     # Execute the query
-                    self.cursor.execute(insert_query_soundplaylistsinfo, soundplaylistsinfo_data)
+                    self.cursor.execute(
+                        insert_query_soundplaylistsinfo, soundplaylistsinfo_data
+                    )
                     self.cnx.commit()
 
         print("Data in sounds directory inserted successfully\n\n\n\n")

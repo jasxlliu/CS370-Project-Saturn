@@ -280,13 +280,23 @@ class CommandLineParser:
             new_file = self.argv[3]
 
             # Determine file extensions
-            original_extension = original_file.split(".")[-1] if original_file[0] != "." else original_file[1:].split(".")[-1]
-            new_extension = new_file.split(".")[-1] if new_file[0] != "." else new_file[1:].split(".")[-1]
+            original_extension = (
+                original_file.split(".")[-1]
+                if original_file[0] != "."
+                else original_file[1:].split(".")[-1]
+            )
+            new_extension = (
+                new_file.split(".")[-1]
+                if new_file[0] != "."
+                else new_file[1:].split(".")[-1]
+            )
 
             # Load the audio and export it to the new format
             sound = AudioSegment.from_file(original_file, format=original_extension)
             sound.export(new_file, format=new_extension)
-            print(f"File transcoded successfully from {original_extension} to {new_extension}")
+            print(
+                f"File transcoded successfully from {original_extension} to {new_extension}"
+            )
 
         else:
             print("Error: Please provide two arguments after the -t option.")
@@ -392,4 +402,3 @@ if __name__ == "__main__":
     # create a command line parser and parse the command line arguments
     parser = CommandLineParser(sys.argv)
     parser.parse_arguments()
-    
