@@ -42,6 +42,7 @@ class CommandLineParser:
         self.argvlen = len(argv)
         self.isPlaying = False
         # small list of audio formats
+        # necessary for the list command
         self.audioFormats = [
             ".wav",
             ".mp3",
