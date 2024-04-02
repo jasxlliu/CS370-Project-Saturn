@@ -4,6 +4,7 @@ import threading
 import simpleaudio as sa
 from pydub import AudioSegment
 import pydub.playback as playback
+import pydub.effects as effects
 
 
 class CommandLineParser:
@@ -398,3 +399,4 @@ if __name__ == "__main__":
     # create a command line parser and parse the command line arguments
     parser = CommandLineParser(sys.argv)
     parser.parse_arguments()
+    

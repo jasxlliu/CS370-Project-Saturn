@@ -75,7 +75,8 @@ Our goal is to establish a comprehensive database and empower users to categoriz
 
 
 ## Epoch Two Contributions.
-- [x] Chris Gomez: DBConnector.py, PlaylistManager.py, UML diagram, started gui.py, and contributed to unit_testing.py, story map, and user stories.
+- Chris Gomez: DBConnector.py, PlaylistManager.py, UML diagram, started gui.py, and contributed to unit_testing.py, story map, and user stories.
+- Neel: Audio transcoding, audio concatenating (audio insertion)
 
 ## Epoch Two Challenges and modification anticipations.
 - [x] Chris Gomez: I tackled the challenge of setting up a connection to a MySQL workbench on my laptop. It was my first time dealing with database connections, cursors, and writing queries. Despite the initial difficulties, I successfully established the link. Looking ahead, I plan to move away from using lists to manage playlist sounds and focus on optimizing query performance through indexing strategies.
