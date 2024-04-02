@@ -67,6 +67,9 @@ Our goal is to establish a comprehensive database and empower users to categoriz
 - [x]: Sort playlist by date.
 - [x]: Sort playlist by sound length.
 
+Part c:
+- [] Unit testing
+
 ## Group members
 - Neel Troeger
 - Chris Gomez
