@@ -50,7 +50,7 @@ class DBConnector:
                 print("Could not connect to MySQL:", err)
 
     def close_connection(self):
-        print("<<Closing>> connection to MySQL")
+        print("<<Closing>> connection to MySQL\n\n\n\n")
         self.cnx.close()
         self.cursor.close()
 
@@ -69,6 +69,16 @@ class DBConnector:
             "(SoundTitle, PlaylistTitle)"
             "VALUES (%s, %s)"
         )
+        insert_query_playlistnames = ("INSERT INTO playlistnames(Name) VALUES(%s)")
+        playlist_name = "Your Library"
+
+        try:
+            self.cursor.execute(insert_query_playlistnames, (playlist_name,))
+            self.cnx.commit()
+            print(f"Playlist '{playlist_name}' added successfully!")
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+
 
         for filename in os.listdir(self.sound_dir):
             if filename.endswith(".wav"):
@@ -126,7 +136,7 @@ class DBConnector:
                     )
                     self.cnx.commit()
 
-        print("Data in sounds directory inserted successfully\n\n\n\n")
+        print("Data in sounds directory inserted successfully")
 
         # CLOSE CONNECTION.
         self.close_connection()
