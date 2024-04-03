@@ -6,40 +6,13 @@ from pydub import AudioSegment
 import pydub.playback as playback
 import pydub.effects as effects
 
+class Saturn:
 
-class CommandLineParser:
-    """
-    A class that parses command line arguments and executes corresponding commands.
-
-    Args:
-        argv (list): The list of command line arguments.
-
-    Attributes:
-        argv (list): The list of command line arguments.
-        argvlen (int): The length of the command line arguments.
-        isPlaying (bool): A flag indicating whether audio is currently being played.
-        audioFormats (list): A list of audio formats.
-    Methods:
-        print_help: Print the help message.
-        count_arguments: Count the number of arguments passed.
-        play: Play a file using the simpleaudio library.
-        play_overlap: Play files overlapping using the play method and threading.
-        play_sequential: Play files sequentially using the play method.
-        play_command: Play a file using the play method.
-        overlap_command: Play files overlapping using the play_overlap method.
-        sequential_command: Play files sequentiall using the play method.
-        list_command: Print all files in the current directory recursively with audio file extensions.
-        rename_command: Rename an audio file.
-        transcode_command: Change audio format.
-        play_backwards_command: Play a file backward.
-        concatenate_command: Concatenate audio files.
-        parse_arguments: Parse the command line arguments and execute the corresponding command.
-    """
-
-    def __init__(self, argv):
-        # initialize the command line parser
+    def __init__(self, argv, argvlen):
+        
         self.argv = argv
-        self.argvlen = len(argv)
+        self.argvlen = argvlen
+
         self.isPlaying = False
         # small list of audio formats
         # necessary for the list command
@@ -81,6 +54,9 @@ class CommandLineParser:
             ".webm",
             ".8svx",
         ]
+
+    def getInstance(self):
+        return self
 
     def print_help(self):
         # this is hacky, but it is the only way to get the help message to print nicely without too much work
@@ -361,31 +337,37 @@ class CommandLineParser:
             )
             sys.exit(1)
 
+class CommandLineParser:
+
+    def __init__(self, argv):
+        self.argv = argv
+        self.saturn = Saturn(self.argv, len(self.argv))
+
     def parse_arguments(self):
         # parse the command line arguments and execute the corresponding command
         command = self.argv[1] if len(self.argv) > 1 else None
 
         match command:
             case None | "--help" | "-h":
-                self.print_help()
+                self.saturn.print_help()
             case "-c" | "--count":
-                self.count_arguments()
+                self.saturn.count_arguments()
             case "-p" | "--play":
-                self.play_command()
+                self.saturn.play_command()
             case "-s" | "--sequential":
-                self.sequential_command()
+                self.saturn.sequential_command()
             case "-o" | "--overlap":
-                self.overlap_command()
+                self.saturn.overlap_command()
             case "-l" | "--list":
-                self.list_command()
+                self.saturn.list_command()
             case "-r" | "--rename":
-                self.rename_command()
+                self.saturn.rename_command()
             case "-t" | "--transcode":
-                self.transcode_command()
+                self.saturn.transcode_command()
             case "-b" | "--play-backwards":
-                self.play_backwards_command()
+                self.saturn.play_backwards_command()
             case "-a" | "--concatenate":
-                self.concatenate_command()
+                self.saturn.concatenate_command()
             case _:
                 errors = self.argv[1:]
                 print(
