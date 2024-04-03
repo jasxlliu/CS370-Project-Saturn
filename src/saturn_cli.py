@@ -6,6 +6,7 @@ from pydub import AudioSegment
 import pydub.playback as playback
 import pydub.effects as effects
 
+
 class Saturn:
     """
     The Saturn class represents a command-line interface for audio file manipulation.
@@ -33,7 +34,7 @@ class Saturn:
     """
 
     def __init__(self, argv, argvlen):
-        
+
         self.argv = argv
         self.argvlen = argvlen
 
@@ -360,6 +361,7 @@ class Saturn:
                 file=sys.stderr,
             )
             sys.exit(1)
+
 
 class CommandLineParser:
     """

@@ -33,8 +33,8 @@ class PlaylistManager:
 
     def view_sort_playlist(self, playlist_title, sort_name=None):
         # Verify playlist is valid.
-        #if playlist_title not in self.playlist_list:
-         #   raise Exception(f"Invalid playlist: {playlist_title}")
+        # if playlist_title not in self.playlist_list:
+        #   raise Exception(f"Invalid playlist: {playlist_title}")
 
         # OPEN CONNECTION.
         self.connector.open_connection()
@@ -69,51 +69,51 @@ class PlaylistManager:
             self.connector.close_connection()
 
     def create_playlist(self, playlist_name):
-        #if playlist_name not in self.playlist_list:
-         #   self.playlist_list.append(playlist_name)
-        
+        # if playlist_name not in self.playlist_list:
+        #   self.playlist_list.append(playlist_name)
+
         self.connector.open_connection()
-        
+
         try:
-            query = ("INSERT INTO playlistnames (Name) VALUES (%s)")
+            query = "INSERT INTO playlistnames (Name) VALUES (%s)"
             self.connector.cursor.execute(query, (playlist_name,))
             self.connector.cnx.commit()
-            
+
         except Exception as e:
             print(f"Error adding playlist: {e}")
-        
+
         finally:
             self.connector.close_connection()
-    
+
     def delete_playlist(self, playlist_name):
         # delete from playlistsname.
         self.connector.open_connection()
-        
+
         try:
-            query = ("DELETE FROM playlistnames WHERE (Name) = %s")
+            query = "DELETE FROM playlistnames WHERE (Name) = %s"
             self.connector.cursor.execute(query, (playlist_name,))
             self.connector.cnx.commit()
-            
+
         except Exception as e:
             print(f"Error deleting playlist: {e}")
-        
+
         finally:
             self.connector.close_connection()
-        
+
         # delete from soundplaylistsinfo.
         self.connector.open_connection()
-        
+
         try:
-            query = ("DELETE FROM soundplaylistsinfo WHERE (PlaylistTitle) = %s")
+            query = "DELETE FROM soundplaylistsinfo WHERE (PlaylistTitle) = %s"
             self.connector.cursor.execute(query, (playlist_name,))
             self.connector.cnx.commit()
-            
+
         except Exception as e:
             print(f"Error deleting playlist: {e}")
-        
+
         finally:
             self.connector.close_connection()
-        
+
     def play_sound_in_playlist(self, sound_title, sound_playlist):
         # verify sound_title and sound_playlist valid.
         """
@@ -122,7 +122,7 @@ class PlaylistManager:
 
         if sound_playlist not in self.playlist_list:
             raise Exception(f"Invalid playlist name: {sound_playlist}")
-        """ 
+        """
         # play the sound.
         parser = CommandLineParser(sys.argv)
         parser.play(parent_dir + "/sounds/" + sound_title + ".wav")
@@ -147,49 +147,52 @@ class PlaylistManager:
 
     def remove_sound_from_playlist(self, sound_title, sound_playlist):
         self.connector.open_connection()
-        
+
         try:
-            query = ("DELETE FROM soundplaylistsinfo WHERE (SoundTitle) = %s AND (PlaylistTitle) = %s" )
+            query = "DELETE FROM soundplaylistsinfo WHERE (SoundTitle) = %s AND (PlaylistTitle) = %s"
             self.connector.cursor.execute(query, (sound_title, sound_playlist))
             self.connector.cnx.commit()
-            print(f"Row with SoundTitle '{sound_title}' and PlaylistTitle '{sound_playlist}' deleted successfully!")
-            
+            print(
+                f"Row with SoundTitle '{sound_title}' and PlaylistTitle '{sound_playlist}' deleted successfully!"
+            )
+
         except Exception as e:
             print(f"Error deleting playlist: {e}")
-        
+
         finally:
             self.connector.close_connection()
+
 
 if __name__ == "__main__":
     manager = PlaylistManager(["Your Library"])
     manager.connector.init_playlist()
-    
+
     # viewing sounds initially.
     print("\n\n\nView all sounds in our library: ")
     manager.view_sort_playlist("Your Library")
     print("\n\n\n")
-    
+
     # sorting by length (example).
     print("\n\n\nView all sounds in our library (in sorted order by length): ")
     manager.view_sort_playlist("Your Library", "Length")
     print("\n\n\n")
-    
+
     # Example: create Liked playlist + add sounds into Liked.
     manager.create_playlist("Liked")
     manager.add_sound_into_playlist("coffee-slurp-2", "Liked")
     manager.add_sound_into_playlist("toaster-2", "Liked")
     manager.add_sound_into_playlist("coffee", "Liked")
-    
+
     # view liked sorted.
     print("\n\n\nView all sounds in our liked playlist: ")
     manager.view_sort_playlist("Liked")
     print("\n\n\n")
-    
+
     # let's remove coffee from liked.
     manager.remove_sound_from_playlist("Coffee", "Liked")
-    
+
     # lets delete a playlist.
     manager.delete_playlist("Liked")
-    
+
     # playing a sound.
     manager.play_sound_in_playlist("toaster", "Your Library")

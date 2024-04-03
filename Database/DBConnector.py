@@ -69,7 +69,7 @@ class DBConnector:
             "(SoundTitle, PlaylistTitle)"
             "VALUES (%s, %s)"
         )
-        insert_query_playlistnames = ("INSERT INTO playlistnames(Name) VALUES(%s)")
+        insert_query_playlistnames = "INSERT INTO playlistnames(Name) VALUES(%s)"
         playlist_name = "Your Library"
 
         try:
@@ -78,7 +78,6 @@ class DBConnector:
             print(f"Playlist '{playlist_name}' added successfully!")
         except mysql.connector.Error as err:
             print(f"Error: {err}")
-
 
         for filename in os.listdir(self.sound_dir):
             if filename.endswith(".wav"):
