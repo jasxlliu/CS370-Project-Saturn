@@ -7,6 +7,30 @@ import pydub.playback as playback
 import pydub.effects as effects
 
 class Saturn:
+    """
+    The Saturn class represents a command-line interface for audio file manipulation.
+
+    Attributes:
+        argv (list): The list of command-line arguments.
+        argvlen (int): The length of the argv list.
+        isPlaying (bool): Indicates whether an audio file is currently being played.
+        audioFormats (list): A list of supported audio file formats.
+
+    Methods:
+        getInstance(): Returns an instance of the Saturn class.
+        print_help(): Prints the help message with available commands and their usage.
+        count_arguments(): Counts the number of arguments passed.
+        play(file_path): Plays an audio file.
+        play_overlap(queue): Plays multiple audio files overlapping each other.
+        play_sequential(queue): Plays multiple audio files sequentially.
+        play_command(): Executes the play command.
+        overlap_command(): Executes the overlap command.
+        sequential_command(): Executes the sequential command.
+        list_command(): Lists all audio files in the current directory.
+        rename_command(): Renames an audio file.
+        transcode_command(): Changes the audio format of a file.
+        play_backwards_command(): Plays an audio file backwards.
+    """
 
     def __init__(self, argv, argvlen):
         
@@ -338,13 +362,26 @@ class Saturn:
             sys.exit(1)
 
 class CommandLineParser:
+    """
+    A class that parses command line arguments and executes corresponding commands.
+
+    Attributes:
+        argv (list): The list of command line arguments.
+
+    Methods:
+        __init__(self, argv): Initializes the CommandLineParser object.
+        parse_arguments(self): Parses the command line arguments and executes the corresponding command.
+    """
 
     def __init__(self, argv):
         self.argv = argv
         self.saturn = Saturn(self.argv, len(self.argv))
+        self.parse_arguments()
 
     def parse_arguments(self):
-        # parse the command line arguments and execute the corresponding command
+        """
+        Parses the command line arguments and executes the corresponding command.
+        """
         command = self.argv[1] if len(self.argv) > 1 else None
 
         match command:
@@ -383,4 +420,3 @@ class CommandLineParser:
 if __name__ == "__main__":
     # create a command line parser and parse the command line arguments
     parser = CommandLineParser(sys.argv)
-    parser.parse_arguments()
