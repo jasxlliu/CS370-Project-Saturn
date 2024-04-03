@@ -6,6 +6,11 @@ CREATE TABLE SoundList (
     PRIMARY KEY(Title)
 );
 
+CREATE TABLE PlaylistNames (
+	Name VARCHAR(50) UNIQUE, 
+    PRIMARY KEY(Name)
+);
+
 CREATE TABLE SoundPlaylistsInfo (
 	SoundTitle VARCHAR(50) NOT NULL,
     PlaylistTitle VARCHAR (25),
