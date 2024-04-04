@@ -1,8 +1,9 @@
 import tkinter as tk
 from tkinter import filedialog
-from saturn_cli import CommandLineParser
+from saturn_cli import CommandLineParser, Saturn
 import threading
 import os
+import sys
 
 
 class AudioEditorApp:
@@ -21,7 +22,8 @@ class AudioEditorApp:
         master.configure(bg="lightcoral")
 
         # Initialize the command line parser
-        self.command_parser = CommandLineParser([])
+        self.audio = Saturn(sys.argv, len(sys.argv))
+        #self.saturn = Saturn()
 
         # Create GUI buttons.
         self.play_button = tk.Button(master, text="Play", command=self.play)
@@ -61,7 +63,7 @@ class AudioEditorApp:
         if self.sequential_songs:
             # use threading if we select multiple songs.
             threading.Thread(
-                target=self.command_parser.play, args=(self.sequential_songs[0],)
+                target=self.audio.play, args=(self.sequential_songs[0],)
             ).start()
         else:
             print("No song selected.")
@@ -70,7 +72,7 @@ class AudioEditorApp:
         # checks if we have songs selected for playback.
         if self.sequential_songs:
             threading.Thread(
-                target=self.command_parser.play_overlap, args=(self.sequential_songs,)
+                target=self.audio.play_overlap, args=(self.sequential_songs,)
             ).start()
         else:
             print("No song selected.")
@@ -79,7 +81,7 @@ class AudioEditorApp:
         # checks if we have songs selected for playback.
         if self.sequential_songs:
             threading.Thread(
-                target=self.command_parser.play_sequential,
+                target=self.audio.play_sequential,
                 args=(self.sequential_songs,),
             ).start()
         else:
