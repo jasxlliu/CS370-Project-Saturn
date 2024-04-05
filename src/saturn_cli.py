@@ -81,8 +81,12 @@ class Saturn:
             ".8svx",
         ]
 
-    def getInstance(self):
-        return self
+    def getInstance(argv, argvlen):
+        # if an instance of Saturn already exists, return it
+        # otherwise, create a new instance
+        if not hasattr(Saturn, "_instance"):
+            Saturn._instance = Saturn(argv=argv, argvlen=argvlen)
+        return Saturn._instance
 
     def print_help(self):
         # print the help message with available commands and their usage
@@ -379,7 +383,8 @@ class CommandLineParser:
 
     def __init__(self, argv):
         self.argv = argv
-        self.saturn = Saturn(self.argv, len(self.argv))
+        # call saturn's getInstance method to get an instance of the Saturn class
+        self.saturn = Saturn.getInstance(argv, len(argv))
         self.parse_arguments()
 
     def parse_arguments(self):
