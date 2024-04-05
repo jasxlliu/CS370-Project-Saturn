@@ -10,7 +10,6 @@ from pydub import AudioSegment
 
 class TestSaturn(unittest.TestCase):
 
-
     def test_getSound(self):
         saturn = Saturn([], 0)
         file_path = "sounds/coffee.wav"
@@ -40,7 +39,8 @@ class TestSaturn(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as fake_out:
             saturn.play_overlap(["sounds/coffee.wav", "sounds/coffee-slurp-2.wav"])
             self.assertIn(
-                "I am now playing the following overlapping each other:", fake_out.getvalue()
+                "I am now playing the following overlapping each other:",
+                fake_out.getvalue(),
             )
         mock_audio_segment.assert_any_call("sounds/coffee.wav", format="wav")
         mock_audio_segment.assert_any_call("sounds/coffee-slurp-2.wav", format="wav")
@@ -53,8 +53,8 @@ class TestSaturn(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as fake_out:
             saturn.play_sequential(["sounds/coffee.wav", "sounds/coffee-slurp-2.wav"])
             self.assertIn("Playing:", fake_out.getvalue())
-        mock_audio_segment.assert_any_call("sounds/coffee.wav", format='wav')
-        mock_audio_segment.assert_any_call("sounds/coffee-slurp-2.wav", format='wav')
+        mock_audio_segment.assert_any_call("sounds/coffee.wav", format="wav")
+        mock_audio_segment.assert_any_call("sounds/coffee-slurp-2.wav", format="wav")
         self.assertEqual(mock_play.call_count, 2)
 
     @patch("os.walk")

@@ -148,7 +148,7 @@ class Saturn:
             " argument" + "s" if self.argvlen - 2 > 1 else "",
         )
         sys.exit(0)
-        
+
     def getSound(self, file_path):
         return AudioSegment.from_file(
             file_path,
