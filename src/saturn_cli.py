@@ -85,11 +85,12 @@ class Saturn:
 
     def print_help(self):
         # this is hacky, but it is the only way to get the help message to print nicely without too much work
+        # do not change it unless you can get the same output with less code
         print(
             "Commands:            Description:                                 Usage:"
         )
         print(
-            "\n-h,--help            Print this help message.                     python {} --help".format(
+            "-h,--help            Print this help message.                     python {} --help".format(
                 self.argv[0]
             )
         )
@@ -134,7 +135,7 @@ class Saturn:
             )
         )
         print(
-            "-a,--concatenate     Concatenate audio files.                     python {} --concatenate file_path1 file_path2 ... new_name extension".format(
+            "-a,--concatenate     Concatenate audio files.                     python {} --concatenate file1 file2 file3 ... name.extension crossfade".format(
                 self.argv[0]
             )
         )
@@ -328,32 +329,29 @@ class Saturn:
             sys.exit(1)
 
     def concatenate_command(self):
-        # concatenate multiple audio files (>2) into one file
-        # take the file paths, the new name, the new file extension, and the crossfade amount
-        # TODO fix this shit
+        # concatenate audio files with crossfade amount (if not supplied, then 0)
+        # python saturn_cli.py -a file1 file2 file3 ... new_name.extension crossfade
         if self.argvlen > 4:
             file_paths = self.argv[2:-3]
-            crossfade = self.argv[-3]
+            new_name = self.argv[-2]
+            extension = new_name.split(".")[-1]
+            crossfade = self.argv[-1] if self.argv[-1].isdigit() else 0
+            if "." not in new_name[1:]:
+                print("Error: Please provide the file extension.", file=sys.stderr)
+                sys.exit(1)
             new_name = (
-                self.argv[-2].split(".")[0]
-                if self.argv[-2][0] != "."
-                else "." + self.argv[-2][1:].split(".")[0]
+                new_name.split(".")[0]
+                if new_name[0] != "."
+                else "." + new_name[1:].split(".")[0] + "." + extension
             )
-            extension = (
-                self.argv[-1].split(".")[-1]
-                if self.argv[-1][0] != "."
-                else self.argv[-1][1:].split(".")[-1]
-            )
-            sound = AudioSegment.from_file(file_paths[0], format=extension)
-            for file_path in file_paths[1:]:
-                sound = sound.append(
-                    AudioSegment.from_file(file_path, format=extension),
-                    crossfade=crossfade,
-                )
-            sound.export(new_name + "." + extension, format=extension)
+            sounds = [AudioSegment.from_file(f) for f in file_paths]
+            combined = sounds[0]
+            for sound in sounds[1:]:
+                combined = combined.append(sound, crossfade=0)
+            combined.export(new_name, format=extension)
         else:
             print(
-                "Error: Please provide at least three arguments after the --concatenate or -a option.",
+                "Error: Please provide at least two file paths and a new name with extension after the --concatenate or -a option.",
                 file=sys.stderr,
             )
             sys.exit(1)
