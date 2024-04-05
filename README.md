@@ -54,20 +54,20 @@
 Part a: enhanced ways to listen to sounds.
 Our goal is to offer users a variety of distinctive methods to listen to sounds and customize them, enabling them to edit and save their creations effortlessly.
 
-- [x]: Insert audio clips in the middle of a sound during editing.
-- [x]: Rename an audio file.
-- [x]: Change sound audio format.
-- [x]: Play a sound backwards.
-- [x]: Concatenate audio file.
-- [x]: Adjust speed of sound clip.
-- [x]: Adjust sound pitch.
+- [x] Insert audio clips in the middle of a sound during editing.
+- [x] Rename an audio file.
+- [x] Change sound audio format.
+- [x] Play a sound backwards.
+- [x] Concatenate audio file.
+- [x] Adjust speed of sound clip.
+- [x] Adjust sound pitch.
 
 Part b: ways to characterize and organize the sounds.
 Our goal is to establish a comprehensive database and empower users to categorize and organize sounds efficiently. Users will have the flexibility to specify the table column for sorting purposes, enhancing their ability to navigate and manage sound data effectively.
 
-- [x]: Sort playlist by title.
-- [x]: Sort playlist by date.
-- [x]: Sort playlist by sound length.
+- [x] Sort playlist by title.
+- [x] Sort playlist by date.
+- [x] Sort playlist by sound length.
 
 Part c:
 
