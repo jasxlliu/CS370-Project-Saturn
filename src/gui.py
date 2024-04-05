@@ -1,98 +1,59 @@
 import tkinter as tk
-from tkinter import filedialog
-from saturn_cli import CommandLineParser, Saturn
-import threading
-import os
-import sys
-
 
 class AudioEditorApp:
-    def __init__(self, master):
-        self.master = master
-        master.title("Audio Editor")
+    def __init__(self):
+        self.root = tk.Tk()
+        self.root.title("Sound Archive App")
+        self.root.geometry("800x600")
+        self.root.configure(bg="lightblue")
 
-        # Get the screen width and height
-        screen_width = master.winfo_screenwidth()
-        screen_height = master.winfo_screenheight()
+        # Create frames for all our pages we drew on the whiteboard.
+        self.home_frame = tk.Frame(self.root)
+        self.playlist_frame = tk.Frame(self.root)
+        self.edit_frame = tk.Frame(self.root)
+    
+        self.f_names = [self.home_frame, self.playlist_frame, self.edit_frame]
+        
+        # Initialize the start screen
+        self.home_screen()
+        self.root.mainloop()
 
-        # Set the window size to match the screen size
-        master.geometry(f"{screen_width}x{screen_height}")
+    def home_screen(self):
+        self.clear_frames()
+        
+        # Pack the home frame into the root window
+        self.home_frame.pack()
+        
+        # Add a button to open the next page.
+        button = tk.Button(self.home_frame, text="Open", command=self.playlist_screen)
+        button.pack()
 
-        # Set color (can change later).
-        master.configure(bg="lightcoral")
+    
+    def playlist_screen(self):
+        self.clear_frames()
+        
+        # Pack the playlist frame into the root window
+        self.playlist_frame.pack()
+        
+        # Add a button to open the new page
+        # TODO: create a button for every playlist we have. For now, I left kinda a default hard coded value.
+        button = tk.Button(self.playlist_frame, text="My Library", command=self.songs_in_playlist_screen)  
+        button.pack()
 
-        # Initialize the command line parser
-        self.audio = Saturn(sys.argv, len(sys.argv))
-        # self.saturn = Saturn()
+        # Define our back button back to the home
+        back_button = tk.Button(self.playlist_frame, text="Go Back", command=self.home_screen)
+        back_button.pack()
+    
+    def songs_in_playlist_screen(self):
+        self.clear_frames()
+        # TODO: Placeholder action for now
+        print("Displaying songs in the playlist...")  
 
-        # Create GUI buttons.
-        self.play_button = tk.Button(master, text="Play", command=self.play)
-        self.play_overlap_button = tk.Button(
-            master, text="Play Overlap", command=self.play_overlap
-        )
-        self.play_sequential_button = tk.Button(
-            master, text="Play Sequential", command=self.play_sequential
-        )
-        self.browse_button = tk.Button(
-            master, text="Browse Sound Folder", command=self.browse_sound_folder
-        )
-        self.song_label = tk.Label(
-            master, text="No song selected", bg="lightcoral", fg="black"
-        )
-
-        # Layout GUI elements
-        self.play_button.pack()
-        self.play_overlap_button.pack()
-        self.play_sequential_button.pack()
-        self.browse_button.pack()
-        self.song_label.pack()
-
-        # Store songs to play sequentially
-        self.sequential_songs = []
-
-    def browse_sound_folder(self):
-        # changed depending on where this gui.py file is placed.
-        initial_dir = "../sounds"
-        file_path = filedialog.askopenfilename(initialdir=initial_dir)
-        if file_path:
-            self.sequential_songs.append(file_path)
-            self.song_label.config(text=f"Selected song: {os.path.basename(file_path)}")
-
-    def play(self):
-        # checks if we have songs selected for playback.
-        if self.sequential_songs:
-            # use threading if we select multiple songs.
-            threading.Thread(
-                target=self.audio.play, args=(self.sequential_songs[0],)
-            ).start()
-        else:
-            print("No song selected.")
-
-    def play_overlap(self):
-        # checks if we have songs selected for playback.
-        if self.sequential_songs:
-            threading.Thread(
-                target=self.audio.play_overlap, args=(self.sequential_songs,)
-            ).start()
-        else:
-            print("No song selected.")
-
-    def play_sequential(self):
-        # checks if we have songs selected for playback.
-        if self.sequential_songs:
-            threading.Thread(
-                target=self.audio.play_sequential,
-                args=(self.sequential_songs,),
-            ).start()
-        else:
-            print("No song selected.")
-
-
-def main():
-    root = tk.Tk()
-    app = AudioEditorApp(root)
-    root.mainloop()
-
-
+    def clear_frames(self):
+        # Destroy widgets in all frames
+        for frame in self.f_names:
+            for widget in frame.winfo_children():
+                widget.destroy()
+        
 if __name__ == "__main__":
-    main()
+    app = AudioEditorApp()
