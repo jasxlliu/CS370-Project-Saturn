@@ -84,11 +84,12 @@ Part c:
 ## Epoch Two Contributions.
 
 - Chris Gomez: DBConnector.py, PlaylistManager.py, UML diagram, started gui.py, and contributed to unit_testing.py, story map, and user stories.
-- Neel: Audio transcoding, audio insertion (concatenation), audio reversal, unit testing for the cli.
+- Neel: Audio transcoding, audio concatenation, audio reversal, unit testing for the cli.
 
 ## Epoch Two Challenges and modification anticipations.
 
 - Chris Gomez: I tackled the challenge of setting up a connection to a MySQL workbench on my laptop. It was my first time dealing with database connections, cursors, and writing queries. Despite the initial difficulties, I successfully established the link. Looking ahead, I plan to move away from using lists to manage playlist sounds and focus on optimizing query performance through indexing strategies.
+- Neel Troeger: Pydub was very easy to work with, providing an interface to manipulate audio files using ffmpeg/libav. Writing the audio transcoding command was quick and easy, but the audio concatenation was a bit more difficult, mostly because of how many inputs it took. I also had to write a function to reverse audio files, which was not very hard, but I learned that my earlier implementation for Epoch 1 did not work as expected. The most difficult part was writing the unit tests, since we went such along time without writing any. At least now that they exist, we can continue to add more as we add more features. 
 
 ## Command Lines.
 
