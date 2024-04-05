@@ -23,7 +23,7 @@ class AudioEditorApp:
 
         # Initialize the command line parser
         self.audio = Saturn(sys.argv, len(sys.argv))
-        #self.saturn = Saturn()
+        # self.saturn = Saturn()
 
         # Create GUI buttons.
         self.play_button = tk.Button(master, text="Play", command=self.play)

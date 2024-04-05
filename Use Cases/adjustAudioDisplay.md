@@ -1,9 +1,3 @@
-<p align="right">Neel Troeger</p>
-<p align="right">CS 370</p>
-<p align="right">3/3/2024</p>
-
-<p align="center">Exam 2 Take-Home</p>
-
 **Use Case Name** | Change Audio File Display Order |
 |---|---|
 Summary | A user reorders the audio files in their audio archive project through the GUI, allowing for a more personalized and efficient organization of their audio files. |

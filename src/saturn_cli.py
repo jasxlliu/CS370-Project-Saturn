@@ -148,32 +148,29 @@ class Saturn:
             " argument" + "s" if self.argvlen - 2 > 1 else "",
         )
         sys.exit(0)
+        
+    def getSound(self, file_path):
+        return AudioSegment.from_file(
+            file_path,
+            format=(
+                file_path.split(".")[-1]
+                if file_path[0] != "."
+                else file_path[1:].split(".")[-1]
+            ),
+        )
 
     def play(self, file_path):
-        # play a file using the simpleaudio library
-        if file_path.endswith(".wav"):
-            self.isPlaying = True
-            wave_obj = sa.WaveObject.from_wave_file(file_path)
-            play_obj = wave_obj.play()
-            play_obj.wait_done()
-            self.isPlaying = False
-        else:
-            self.isPlaying = True
-            sound = AudioSegment.from_file(
-                file_path,
-                format=(
-                    file_path.split(".")[-1]
-                    if file_path[0] != "."
-                    else file_path[1:].split(".")[-1]
-                ),
-            )
-            playback.play(sound)
-            self.isPlaying = False
+        # play an audio file
+        self.isPlaying = True
+        sound = self.getSound(file_path)
+        playback.play(sound)
+        self.isPlaying = False
 
     def play_overlap(self, queue):
         # play files overlapping using the play method
         # and threading to play multiple files at the same time
         threads = []
+        print(f"I am now playing the following overlapping each other: {queue}")
         for file_path in queue:
             thread = threading.Thread(target=self.play, args=(file_path,))
             threads.append(thread)
@@ -211,7 +208,6 @@ class Saturn:
         if self.argvlen > 2:
             for i in self.argv[2:]:
                 file_paths.append(i)
-                print("I am now playing files overlapping each other:", i)
             self.play_overlap(file_paths)
         else:
             print(
