@@ -5,6 +5,7 @@ import simpleaudio as sa
 from pydub import AudioSegment
 import pydub.playback as playback
 import pydub.effects as effects
+import pandas as pd
 
 
 class Saturn:
@@ -84,61 +85,67 @@ class Saturn:
         return self
 
     def print_help(self):
-        # this is hacky, but it is the only way to get the help message to print nicely without too much work
-        # do not change it unless you can get the same output with less code
-        print(
-            "Commands:            Description:                                 Usage:"
-        )
-        print(
-            "-h,--help            Print this help message.                     python {} --help".format(
-                self.argv[0]
-            )
-        )
-        print(
-            "-c,--count           Count the number of arguments.               python {} --count".format(
-                self.argv[0]
-            )
-        )
-        print(
-            "-p,--play            Play a file.                                 python {} --play file_path".format(
-                self.argv[0]
-            )
-        )
-        print(
-            "-s,--sequential      Play files sequentially.                     python {} --sequential file_path1 file_path2 ...".format(
-                self.argv[0]
-            )
-        )
-        print(
-            "-o,--overlap         Play files overlapping each other.           python {} --overlap file_path1 file_path2 ...".format(
-                self.argv[0]
-            )
-        )
-        print(
-            "-l,--list            List audio files in the current directory.   python {} --list".format(
-                self.argv[0]
-            )
-        )
-        print(
-            "-r,--rename          Rename an audio file.                        python {} --rename original_name new_name".format(
-                self.argv[0]
-            )
-        )
-        print(
-            "-t,--transcode       Change audio format.                         python {} --transcode original_file.wav new_file.mp3".format(
-                self.argv[0]
-            )
-        )
-        print(
-            "-b,--play-backwards  Play a file backward.                        python {} --play-backwards file_path".format(
-                self.argv[0]
-            )
-        )
-        print(
-            "-a,--concatenate     Concatenate audio files.                     python {} --concatenate file1 file2 file3 ... name.extension crossfade".format(
-                self.argv[0]
-            )
-        )
+        # print the help message with available commands and their usage
+
+        # this is kinda an insane way to do this but its so much cleaner than a bunch of print statements
+        df = pd.DataFrame(columns=["Command", "Description", "Usage"])
+        commands = [
+            {
+                "Command": "-h,--help",
+                "Description": "Print this help message.",
+                "Usage": f"python {self.argv[0]} --help",
+            },
+            {
+                "Command": "-c,--count",
+                "Description": "Count the number of arguments.",
+                "Usage": f"python {self.argv[0]} --count",
+            },
+            {
+                "Command": "-p,--play",
+                "Description": "Play a file.",
+                "Usage": f"python {self.argv[0]} --play file_path",
+            },
+            {
+                "Command": "-s,--sequential",
+                "Description": "Play files sequentially.",
+                "Usage": f"python {self.argv[0]} --sequential file_path1 file_path2 ...",
+            },
+            {
+                "Command": "-o,--overlap",
+                "Description": "Play files overlapping each other.",
+                "Usage": f"python {self.argv[0]} --overlap file_path1 file_path2 ...",
+            },
+            {
+                "Command": "-l,--list",
+                "Description": "List audio files in the current directory.",
+                "Usage": f"python {self.argv[0]} --list",
+            },
+            {
+                "Command": "-r,--rename",
+                "Description": "Rename an audio file.",
+                "Usage": f"python {self.argv[0]} --rename original_name new_name",
+            },
+            {
+                "Command": "-t,--transcode",
+                "Description": "Change audio format.",
+                "Usage": f"python {self.argv[0]} --transcode original_file.wav new_file.mp3",
+            },
+            {
+                "Command": "-b,--play-backwards",
+                "Description": "Play a file backward.",
+                "Usage": f"python {self.argv[0]} --play-backwards file_path",
+            },
+            {
+                "Command": "-a,--concatenate",
+                "Description": "Concatenate audio files.",
+                "Usage": f"python {self.argv[0]} --concatenate file1 file2 file3 ... name.extension crossfade",
+            },
+        ]
+
+        for command in commands:
+            df = df._append(command, ignore_index=True)
+
+        print(df.to_string(index=False))
         sys.exit(0)
 
     def count_arguments(self):
