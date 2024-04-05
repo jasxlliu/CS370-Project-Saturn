@@ -82,14 +82,16 @@ class Saturn:
         ]
 
     def getInstance(argv, argvlen):
-        # if an instance of Saturn already exists, return it
-        # otherwise, create a new instance
+        """
+        if an instance of Saturn already exists, return it
+        otherwise, create a new instance
+        """
         if not hasattr(Saturn, "_instance"):
             Saturn._instance = Saturn(argv=argv, argvlen=argvlen)
         return Saturn._instance
 
     def print_help(self):
-        # print the help message with available commands and their usage
+        """print the help message with available commands and their usage"""
 
         # this is kinda an insane way to do this but its so much cleaner than a bunch of print statements
         df = pd.DataFrame(columns=["Command", "Description", "Usage"])
@@ -153,7 +155,7 @@ class Saturn:
         sys.exit(0)
 
     def count_arguments(self):
-        # count the number of arguments passed
+        """count the number of arguments passed"""
         print(
             "counted ",
             self.argvlen - 2,
@@ -172,15 +174,15 @@ class Saturn:
         )
 
     def play(self, file_path):
-        # play an audio file
+        """ play an audio file """
         self.isPlaying = True
         sound = self.getSound(file_path)
         playback.play(sound)
         self.isPlaying = False
 
     def play_overlap(self, queue):
-        # play files overlapping using the play method
-        # and threading to play multiple files at the same time
+        """ play files overlapping using the play method
+        and threading to play multiple files at the same time """
         threads = []
         print(f"I am now playing the following overlapping each other: {queue}")
         for file_path in queue:
@@ -192,7 +194,7 @@ class Saturn:
             thread.join()
 
     def play_sequential(self, queue):
-        # play files sequentially using the play method
+        """ play files sequentially using the play method """
         while not self.isPlaying and queue:
             for file_path in queue:
                 print("Playing:", file_path)
@@ -200,7 +202,7 @@ class Saturn:
                 queue = queue[1:]
 
     def play_command(self):
-        # play a file using the play method
+        """ play a file using the play method """
         if self.argvlen > 2:
             file_path = self.argv[2]
             if file_path[0] == ".":
@@ -215,7 +217,7 @@ class Saturn:
             sys.exit(1)
 
     def overlap_command(self):
-        # play files overlapping using the play_overlap method
+        """ play files overlapping using the play_overlap method """
         file_paths = []
         if self.argvlen > 2:
             for i in self.argv[2:]:
@@ -229,7 +231,7 @@ class Saturn:
             sys.exit(1)
 
     def sequential_command(self):
-        # play files sequentially using the play method
+        """ play files sequentially using the play method """
         file_paths = []
         if self.argvlen > 2:
             for i in self.argv[2:]:
@@ -244,7 +246,7 @@ class Saturn:
             sys.exit(1)
 
     def list_command(self):
-        # print all files in the current directory recursively with audio file extensions
+        """ print all files in the current directory recursively with audio file extensions """
         # this WILL not work if the cwd is /src/
         # dirs is necessary for the os.walk function, don't remove it
         for root, dirs, files in os.walk(os.getcwd()):
@@ -253,7 +255,7 @@ class Saturn:
                     print(os.path.join(root, file))
 
     def rename_command(self):
-        # rename an audio file, take the original name and the new one, doesn't change file extension
+        """ rename an audio file, take the original name and the new one, doesn't change file extension """
         if self.argvlen > 3:
             original_name = self.argv[2]
             extension = (
@@ -283,7 +285,7 @@ class Saturn:
             sys.exit(1)
 
     def transcode_command(self):
-        # Change audio format
+        """ Transcode an audio file to a different format."""
         # Usage: python saturn_cli.py -t original_file new_file
         if self.argvlen == 4:
             original_file = self.argv[2]
@@ -313,7 +315,7 @@ class Saturn:
             sys.exit(1)
 
     def play_backwards_command(self):
-        # play a file using the play method
+        """ play a file using the play method """
         if self.argvlen > 2:
             file_path = self.argv[2]
             if file_path[0] == ".":
@@ -341,7 +343,7 @@ class Saturn:
             sys.exit(1)
 
     def concatenate_command(self):
-        # concatenate audio files with crossfade amount (if not supplied, then 0)
+        """ concatenate audio files with crossfade amount (if not supplied, then 0) """
         # python saturn_cli.py -a file1 file2 file3 ... new_name.extension crossfade
         if self.argvlen > 4:
             file_paths = self.argv[2:-3]
