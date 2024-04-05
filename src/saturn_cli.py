@@ -235,6 +235,7 @@ class Saturn:
     def list_command(self):
         # print all files in the current directory recursively with audio file extensions
         # this WILL not work if the cwd is /src/
+        # dirs is necessary for the os.walk function, don't remove it
         for root, dirs, files in os.walk(os.getcwd()):
             for file in files:
                 if file.endswith(tuple(self.audioFormats)):
